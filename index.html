@@ -2,202 +2,395 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Mon Mini Reddit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DATA VIZ - BAD SWIW</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 
-  /* Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+    /* 🎨 CSS Variables */
+    :root {
+        --reddit-orange: #FF4500;
+        --background-light: #F1F3F4;
+        --text-dark: #1a1a1b;
+        --border-color: #ddd;
+        --hover-light: #e8e8e8;
+        --header-height: 50px;
+        --max-width: 1200px;
+    }
 
-  body {
-    font-family: Arial, sans-serif;
-    background: #F1F3F4;
-    color: #1a1a1b;
-  }
+    /* Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-  /* HEADER */
-  header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 16px;
-    background: white;
-    border-bottom: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+    body {
+        font-family: Arial, sans-serif;
+        background: var(--background-light);
+        color: var(--text-dark);
+        line-height: 1.5;
+    }
 
-  .logo {
-    font-weight: 700;
-    font-size: 20px;
-    color: #FF4500;
-  }
+    /* HEADER */
+    header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 10px 16px;
+        background: white;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: var(--header-height);
+    }
 
-  .search {
-    flex: 1;
-  }
-  .search input {
-    width: 70%;
-    padding: 8px 12px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-  }
+    .logo {
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--reddit-orange);
+        min-width: 80px; /* Assure que le logo ne se réduit pas */
+    }
 
-  /* GRID LAYOUT */
-  .layout {
-    display: grid;
-    grid-template-columns: 220px minmax(500px, 640px) 280px;
-    gap: 20px;
-    max-width: 1400px;
-    margin: 20px auto;
-    padding: 0 16px;
-  }
+    .search {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .search input {
+        width: 100%;
+        max-width: 600px;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        background-color: var(--background-light);
+        transition: background-color 0.2s;
+    }
+    .search input:focus {
+        background-color: white;
+        border-color: var(--reddit-orange);
+        outline: none;
+    }
 
-  /* SIDEBAR LEFT */
-  .sidebar-left {
-    position: sticky;
-    top: 70px;
-    height: max-content;
-  }
-
-  .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 4px;
-    cursor: pointer;
-  }
-
-  .nav-link:hover {
-    background: #e8e8e8;
-  }
-
-  /* MAIN FEED (Posts) */
-  .post {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-  }
-
-  .post img {
-    width: 100%;
-    display: block;
-  }
-
-  .post-info {
-    padding: 12px 16px;
-  }
-
-  .subreddit {
-    font-size: 12px;
-    color: #555;
-  }
-
-  .post-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-
-  /* SIDE RIGHT */
-  .sidebar-right {
-    position: sticky;
-    top: 70px;
-    height: max-content;
-  }
-
-  .card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 20px;
-  }
-
-  .card h3 {
-    margin-bottom: 8px;
-  }
-
-  /* RESPONSIVE */
-  @media(max-width: 1000px) {
+    /* GRID LAYOUT */
     .layout {
-      grid-template-columns: minmax(500px, 640px);
+        display: grid;
+        grid-template-columns: 240px minmax(500px, 640px) 300px;
+        gap: 24px;
+        max-width: var(--max-width);
+        margin: 24px auto;
+        padding: 0 16px;
     }
-    .sidebar-left,
+
+    /* SIDEBAR LEFT */
+    .sidebar-left {
+        position: sticky;
+        top: calc(var(--header-height) + 16px); /* Positionnement sous l'en-tête */
+        height: max-content;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        padding: 8px 0;
+    }
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    .nav-link i {
+        width: 18px;
+        text-align: center;
+    }
+    .nav-link:hover {
+        background: var(--hover-light);
+        color: var(--reddit-orange);
+    }
+
+    /* MAIN FEED (Posts) */
+    .post {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 16px;
+        display: flex; /* Utilisation de flex pour la colonne de votes */
+    }
+
+    .post-vote-tally {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 6px;
+        background: var(--hover-light);
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    .vote-btn {
+        font-size: 20px;
+        color: #878a8c;
+        cursor: pointer;
+        padding: 4px;
+    }
+    .vote-btn:hover {
+        color: var(--reddit-orange);
+    }
+    .upvoted {
+        color: var(--reddit-orange);
+    }
+    .downvoted {
+        color: #0079D3; /* Bleu pour le downvote */
+    }
+
+    .vote-count {
+        font-weight: 600;
+        font-size: 12px;
+        margin: 4px 0;
+    }
+
+    .post-content {
+        flex: 1;
+        padding: 0;
+    }
+
+    .post img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .post-info {
+        padding: 12px 16px;
+    }
+
+    .subreddit {
+        font-size: 12px;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .subreddit span {
+        font-weight: 600;
+        color: var(--text-dark);
+        cursor: pointer;
+    }
+    .subreddit span:hover {
+        text-decoration: underline;
+    }
+
+    .post-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .post-actions {
+        display: flex;
+        gap: 16px;
+        padding: 8px 16px 12px;
+        border-top: 1px solid var(--border-color);
+        margin-top: 10px;
+    }
+
+    .action-btn {
+        font-size: 14px;
+        font-weight: 600;
+        color: #878a8c;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 8px;
+        border-radius: 4px;
+    }
+    .action-btn:hover {
+        background: var(--hover-light);
+    }
+    .action-btn i {
+        font-size: 16px;
+    }
+
+
+    /* SIDE RIGHT */
     .sidebar-right {
-      display: none;
+        position: sticky;
+        top: calc(var(--header-height) + 16px);
+        height: max-content;
     }
-  }
+
+    .card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .card h3 {
+        margin-bottom: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+    }
+
+    .card button {
+        background: var(--reddit-orange);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        transition: opacity 0.2s;
+    }
+    .card button:hover {
+        opacity: 0.9;
+    }
+
+    /* Card pour les Visualisations */
+    .viz-card {
+        background: #e6f7ff; /* Couleur plus claire pour attirer l'attention */
+        border: 1px solid #99d8ff;
+    }
+    .viz-card h3 {
+        color: #0079D3;
+        border-bottom-color: #99d8ff;
+    }
+    .viz-placeholder {
+        height: 200px;
+        background: #cceeff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0079D3;
+        font-weight: 600;
+        border-radius: 4px;
+    }
+
+
+    /* RESPONSIVE */
+    @media(max-width: 1050px) {
+        .layout {
+            grid-template-columns: minmax(500px, 640px);
+            gap: 20px;
+        }
+        .sidebar-left,
+        .sidebar-right {
+            display: none;
+        }
+    }
+    @media(max-width: 600px) {
+        .layout {
+            padding: 0 10px;
+        }
+    }
 
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">RedditClone</div>
-  <div class="search">
-    <input type="text" placeholder="Rechercher sur Reddit">
-  </div>
+    <div class="logo">BAD SWIW</div>
+    <div class="search">
+        <input type="text" placeholder="Rechercher des communautés ou des statistiques">
+    </div>
 </header>
 
 <div class="layout">
 
-  <!-- LEFT SIDEBAR -->
-  <aside class="sidebar-left">
-    <div class="nav-link">🏠 Accueil</div>
-    <div class="nav-link">🔥 Populaire</div>
-    <div class="nav-link">🔍 Explorer</div>
-    <div class="nav-link">➕ Créer une communauté</div>
-  </aside>
+    <aside class="sidebar-left">
+        <div class="nav-link"><i class="fas fa-home"></i> Accueil</div>
+        <div class="nav-link"><i class="fas fa-chart-line"></i> **Visualisations**</div>
+        <div class="nav-link"><i class="fas fa-fire"></i> Populaire</div>
+        <div class="nav-link"><i class="fas fa-compass"></i> Explorer</div>
+        <div class="nav-link"><i class="fas fa-plus"></i> Créer une communauté</div>
+    </aside>
 
-  <!-- MAIN CONTENT -->
-  <main>
-    <!-- POST 1 -->
-    <article class="post">
-      <img src="https://placehold.co/800x400" alt="image">
-      <div class="post-info">
-        <div class="subreddit">r/RedditGames • il y a 17h</div>
-        <div class="post-title">Pipy – Nouveau jeu pixel 🦆</div>
-        <p>Un mini jeu inspiré de Flappy avec un canard !</p>
-      </div>
-    </article>
+    <main>
+        <article class="post">
+            <div class="post-vote-tally">
+                <i class="fas fa-arrow-up vote-btn upvoted"></i>
+                <div class="vote-count">4.2k</div>
+                <i class="fas fa-arrow-down vote-btn"></i>
+            </div>
+            <div class="post-content">
+                <img src="https://placehold.co/800x400/FF4500/white?text=Top+Post+%231" alt="image du post">
+                <div class="post-info">
+                    <div class="subreddit">
+                        <i class="far fa-user-circle"></i> posté par <span>u/DataVizMaster</span> • il y a 17h
+                    </div>
+                    <div class="post-title">Analyse du Sentiment sur r/RedditGames</div>
+                    <p>Visualisation de l'évolution du sentiment positif après la sortie du jeu Pipy. **Très forte croissance !**</p>
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn"><i class="far fa-comment-alt"></i> 245 Commentaires</div>
+                    <div class="action-btn"><i class="fas fa-share"></i> Partager</div>
+                    <div class="action-btn"><i class="far fa-bookmark"></i> Sauvegarder</div>
+                </div>
+            </div>
+        </article>
 
-    <!-- POST 2 -->
-    <article class="post">
-      <img src="https://placehold.co/800x400" alt="image">
-      <div class="post-info">
-        <div class="subreddit">r/WebDev • il y a 5h</div>
-        <div class="post-title">Comment créer un clone de Reddit ?</div>
-        <p>Voici un layout HTML/CSS simple qui reproduit Reddit.</p>
-      </div>
-    </article>
+        <article class="post">
+            <div class="post-vote-tally">
+                <i class="fas fa-arrow-up vote-btn"></i>
+                <div class="vote-count">241</div>
+                <i class="fas fa-arrow-down vote-btn downvoted"></i>
+            </div>
+            <div class="post-content">
+                <div class="post-info">
+                    <div class="subreddit">
+                        <i class="far fa-user-circle"></i> posté par <span>u/CSS_Lover</span> • il y a 5h
+                    </div>
+                    <div class="post-title">Nombre de Mots par Sous-reddit (Top 5)</div>
+                    <p>Graphique à barres montrant la longueur moyenne des titres de posts dans les sous-reddits populaires.</p>
+                </div>
+                <div style="padding: 16px;">
+                    <div style="height: 150px; background: #f0f0f0; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center;">
+                        [Placeholder pour Graphique à Barres de Longueur de Texte]
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn"><i class="far fa-comment-alt"></i> 12 Commentaires</div>
+                    <div class="action-btn"><i class="fas fa-share"></i> Partager</div>
+                    <div class="action-btn"><i class="far fa-bookmark"></i> Sauvegarder</div>
+                </div>
+            </div>
+        </article>
 
-  </main>
+    </main>
 
-  <!-- RIGHT SIDEBAR -->
-  <aside class="sidebar-right">
-    <div class="card">
-      <h3>Rejoindre une communauté</h3>
-      <p>Découvre des sujets populaires.</p>
-      <button>Voir plus</button>
-    </div>
+    <aside class="sidebar-right">
+        <div class="card viz-card">
+            <h3>📈 Statistiques Rapides</h3>
+            <div class="viz-placeholder">
+                [Zone pour un Mini Graphique D3.js ou Chart.js]
+            </div>
+            <p style="margin-top: 10px; font-size: 14px;">Taux d'engagement moyen : **+12%** par rapport à la semaine dernière.</p>
+            <button>Accéder au Tableau de Bord Complet</button>
+        </div>
 
-    <div class="card">
-      <h3>Règles du site</h3>
-      <p>1. Respect</p>
-      <p>2. Pas de spam</p>
-      <p>3. Amuse-toi</p>
-    </div>
-  </aside>
+        <div class="card">
+            <h3>Rejoindre une communauté</h3>
+            <p>Découvrez des sujets et des visualisations de données populaires.</p>
+            <button>Voir plus de communautés</button>
+        </div>
+
+        <div class="card">
+            <h3>Règles d'Analyse</h3>
+            <p>1. **Transparence** des sources de données.</p>
+            <p>2. **Objectivité** dans les rapports.</p>
+            <p>3. Amuse-toi à **quantifier** l'humour !</p>
+        </div>
+    </aside>
 
 </div>
 
