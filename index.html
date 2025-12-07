@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark"> <head>
+<html lang="fr" data-theme="dark">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUANTIFY HUMOUR - DATA EPICNESS</title>
+<title>QUANTIFY HUMOUR - DATA EPICNESS V2</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 
     /* 🎨 CSS Variables */
     :root {
-        /* Lumière */
+        /* Light Mode */
         --reddit-orange: #FF4500;
         --background: #F1F3F4;
         --surface: white;
@@ -16,16 +17,18 @@
         --border-color: #ddd;
         --hover-light: #e8e8e8;
         --shadow-color: rgba(0, 0, 0, 0.05);
+        --active-link-bg: #ffe4d7;
     }
     /* Dark Mode (Activation via [data-theme="dark"]) */
     [data-theme="dark"] {
-        --reddit-orange: #FF5733; /* Orange plus vif pour le Dark Mode */
-        --background: #0B1416; /* Fond très sombre */
-        --surface: #1A282D; /* Surface des cartes et posts */
+        --reddit-orange: #FF5733; 
+        --background: #0B1416; 
+        --surface: #1A282D; 
         --text-color: #F8F9FA;
         --border-color: #334A52;
         --hover-light: #243B42;
         --shadow-color: rgba(0, 0, 0, 0.4);
+        --active-link-bg: #2d454d;
     }
 
     /* Général */
@@ -40,47 +43,53 @@
         background: var(--background);
         color: var(--text-color);
         line-height: 1.6;
-        /* Fond épique */
         background-image: linear-gradient(135deg, var(--background) 0%, #1c323a 100%);
         background-attachment: fixed;
     }
-
-    /* 🌟 Scrollbar Stylisée */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-        background: var(--background);
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #555;
-        border-radius: 5px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
+    
+    /* Bouton Bascule Thème */
+    #theme-toggle {
         background: var(--reddit-orange);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 50%;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-left: auto; /* Pousse le bouton à droite */
+        box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
     }
+    #theme-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 69, 0, 0.8);
+    }
+    
+    /* Scrollbar Stylisée (Maintenue) */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--background); }
+    ::-webkit-scrollbar-thumb { background: #555; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--reddit-orange); }
 
-    /* HEADER */
+    /* HEADER (Maintenu) */
     header {
         display: flex;
         align-items: center;
         gap: 20px;
         padding: 12px 20px;
         background: var(--surface);
-        border-bottom: 2px solid var(--reddit-orange); /* Ligne orange épique */
+        border-bottom: 2px solid var(--reddit-orange);
         position: sticky;
         top: 0;
         z-index: 100;
         box-shadow: 0 4px 12px var(--shadow-color);
     }
-
     .logo {
         font-weight: 900;
         font-size: 24px;
         color: var(--reddit-orange);
-        text-shadow: 0 0 5px rgba(255, 69, 0, 0.5); /* Effet de lueur */
+        text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
     }
-
     .search {
         flex: 1;
         display: flex;
@@ -124,6 +133,8 @@
         padding: 8px 0;
         box-shadow: 0 6px 15px var(--shadow-color);
     }
+
+    /* 🔗 Nav Link Style */
     .nav-link {
         display: flex;
         align-items: center;
@@ -132,6 +143,8 @@
         cursor: pointer;
         font-weight: 600;
         transition: all 0.2s;
+        color: var(--text-color);
+        text-decoration: none; /* Rendre les liens non soulignés */
     }
     .nav-link i {
         color: var(--reddit-orange);
@@ -141,6 +154,13 @@
         background: var(--hover-light);
         color: var(--reddit-orange);
         transform: translateX(5px);
+    }
+    /* Lien Actif */
+    .nav-link.active {
+        background: var(--active-link-bg);
+        color: var(--reddit-orange);
+        border-left: 4px solid var(--reddit-orange);
+        padding-left: 16px;
     }
 
     /* MAIN FEED (Posts) */
@@ -154,10 +174,9 @@
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
     .post:hover {
-        transform: translateY(-5px); /* Animation au survol */
+        transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
     }
-
     .post-vote-tally {
         display: flex;
         flex-direction: column;
@@ -165,6 +184,7 @@
         padding: 10px 8px;
         background: var(--hover-light);
         min-width: 50px;
+        user-select: none; /* Empêche la sélection du texte */
     }
 
     /* ⬆️ Boutons de Vote (Interaction) */
@@ -176,7 +196,7 @@
         transition: all 0.15s ease-in-out;
     }
     .vote-btn:active {
-        transform: scale(1.15); /* Feedback au clic */
+        transform: scale(1.15);
     }
     .upvoted {
         color: var(--reddit-orange);
@@ -194,45 +214,7 @@
         color: var(--text-color);
     }
 
-    .post-content {
-        flex: 1;
-    }
-
-    .post img {
-        width: 100%;
-        max-height: 450px;
-        object-fit: cover;
-        display: block;
-    }
-
-    .post-info {
-        padding: 16px 20px;
-    }
-
-    .subreddit {
-        font-size: 13px;
-        color: #999;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .subreddit span {
-        font-weight: 700;
-        color: var(--text-color);
-        cursor: pointer;
-    }
-    .subreddit span:hover {
-        text-decoration: underline;
-        color: var(--reddit-orange);
-    }
-
-    .post-title {
-        font-size: 20px;
-        font-weight: 800;
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-
+    /* ➡️ Action Buttons (Interactivité) */
     .post-actions {
         display: flex;
         gap: 20px;
@@ -240,7 +222,6 @@
         border-top: 1px solid var(--border-color);
         margin-top: 10px;
     }
-
     .action-btn {
         font-size: 14px;
         font-weight: 700;
@@ -257,10 +238,14 @@
         background: var(--hover-light);
         color: var(--reddit-orange);
     }
-    .action-btn i {
-        font-size: 18px;
+    /* Ajout d'un état actif pour les boutons (simulé) */
+    .action-btn.comment:active,
+    .action-btn.share:active,
+    .action-btn.save:active {
+        background: var(--reddit-orange);
+        color: white;
+        transform: scale(0.95);
     }
-
 
     /* SIDE RIGHT */
     .sidebar-right {
@@ -269,47 +254,11 @@
         height: max-content;
     }
 
-    .card {
-        background: var(--surface);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 10px var(--shadow-color);
-    }
-
-    .card h3 {
-        margin-bottom: 15px;
-        font-size: 18px;
-        font-weight: 800;
-        border-bottom: 2px solid var(--reddit-orange);
-        padding-bottom: 10px;
-        color: var(--reddit-orange);
-    }
-
-    .card button {
-        background: var(--reddit-orange);
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 25px;
-        font-weight: 700;
-        cursor: pointer;
-        margin-top: 15px;
-        width: 100%;
-        transition: transform 0.2s, background 0.2s;
-        letter-spacing: 1px;
-    }
-    .card button:hover {
-        background: #FF5733;
-        transform: translateY(-2px);
-    }
-
-    /* 🚀 Carte de Visualisation Épique */
+    /* 🚀 Carte de Visualisation Épique (Maintenue) */
     .viz-card {
         background: linear-gradient(135deg, #1c323a 0%, var(--surface) 100%);
         border: 2px solid var(--reddit-orange);
-        box-shadow: 0 0 20px rgba(255, 69, 0, 0.7); /* Grosse lueur */
+        box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
         color: var(--text-color);
     }
     .viz-card h3 {
@@ -331,13 +280,27 @@
         border: 1px dashed var(--reddit-orange);
         margin-top: 10px;
     }
-    .viz-card p {
-        font-weight: 600;
-        color: #F0F0F0;
+
+    /* Boutons dans les Cartes (Maintenu) */
+    .card button {
+        background: var(--reddit-orange);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 15px;
+        width: 100%;
+        transition: transform 0.2s, background 0.2s;
+        letter-spacing: 1px;
+    }
+    .card button:hover {
+        background: #FF5733;
+        transform: translateY(-2px);
     }
 
-
-    /* RESPONSIVE */
+    /* RESPONSIVE (Maintenu) */
     @media(max-width: 1050px) {
         .layout {
             grid-template-columns: minmax(500px, 640px);
@@ -357,24 +320,27 @@
     <div class="search">
         <input type="text" placeholder="Rechercher des modèles, des théories et des données épiques...">
     </div>
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
 </header>
 
 <div class="layout">
 
     <aside class="sidebar-left">
-        <div class="nav-link"><i class="fas fa-home"></i> Accueil</div>
-        <div class="nav-link"><i class="fas fa-chart-bar"></i> **Quantification**</div>
-        <div class="nav-link"><i class="fas fa-fire"></i> Méta-Humour</div>
-        <div class="nav-link"><i class="fas fa-sitemap"></i> Arbre des communautés</div>
-        <div class="nav-link"><i class="fas fa-plus-circle"></i> Soumettre une théorie</div>
+        <a href="#" class="nav-link active" onclick="setActiveLink(this)"><i class="fas fa-home"></i> Accueil</a>
+        <a href="#quantification" class="nav-link" onclick="setActiveLink(this)"><i class="fas fa-chart-bar"></i> **Quantification**</a>
+        <a href="#meta-humour" class="nav-link" onclick="setActiveLink(this)"><i class="fas fa-fire"></i> Méta-Humour</a>
+        <a href="#structure" class="nav-link" onclick="setActiveLink(this)"><i class="fas fa-sitemap"></i> Arbre des communautés</a>
+        <a href="#submit" class="nav-link" onclick="setActiveLink(this)"><i class="fas fa-plus-circle"></i> Soumettre une théorie</a>
     </aside>
 
     <main>
         <article class="post">
             <div class="post-vote-tally">
-                <i class="fas fa-arrow-up vote-btn upvoted"></i>
-                <div class="vote-count">12.5k</div>
-                <i class="fas fa-arrow-down vote-btn"></i>
+                <i class="fas fa-arrow-up vote-btn upvoted" onclick="vote(this, 1)"></i>
+                <div class="vote-count" id="post1-count">12.5k</div>
+                <i class="fas fa-arrow-down vote-btn" onclick="vote(this, -1)"></i>
             </div>
             <div class="post-content">
                 <img src="https://placehold.co/800x450/FF4500/000000?text=THE+HUMOUR+EQUATION" alt="Modèle de quantification de l'humour">
@@ -386,18 +352,18 @@
                     <p>Une nouvelle métrique pour mesurer la densité d'humour (I=Imprévu, D=Délivrance, P=Prévisibilité). Les résultats sont étonnants !</p>
                 </div>
                 <div class="post-actions">
-                    <div class="action-btn"><i class="far fa-comment-dots"></i> 1.8k Commentaires</div>
-                    <div class="action-btn"><i class="fas fa-share-alt"></i> Partager la Théorie</div>
-                    <div class="action-btn"><i class="fas fa-flask"></i> Tester le Modèle</div>
+                    <div class="action-btn comment" onclick="alert('Ouvrir les 1.8k Commentaires')"><i class="far fa-comment-dots"></i> 1.8k Commentaires</div>
+                    <div class="action-btn share" onclick="alert('Partager la Théorie Alpha')"><i class="fas fa-share-alt"></i> Partager la Théorie</div>
+                    <div class="action-btn save" onclick="alert('Tester le Modèle...')"><i class="fas fa-flask"></i> Tester le Modèle</div>
                 </div>
             </div>
         </article>
 
         <article class="post">
             <div class="post-vote-tally">
-                <i class="fas fa-arrow-up vote-btn"></i>
-                <div class="vote-count">3.1k</div>
-                <i class="fas fa-arrow-down vote-btn downvoted"></i>
+                <i class="fas fa-arrow-up vote-btn" onclick="vote(this, 1)"></i>
+                <div class="vote-count" id="post2-count">3.1k</div>
+                <i class="fas fa-arrow-down vote-btn" onclick="vote(this, -1)"></i>
             </div>
             <div class="post-content">
                 <div class="post-info">
@@ -413,9 +379,9 @@
                     </div>
                 </div>
                 <div class="post-actions">
-                    <div class="action-btn"><i class="fas fa-stream"></i> 450 Flux en Direct</div>
-                    <div class="action-btn"><i class="fas fa-code-branch"></i> Fork la donnée</div>
-                    <div class="action-btn"><i class="far fa-bookmark"></i> Suivre l'Anomalie</div>
+                    <div class="action-btn comment" onclick="alert('450 Flux en Direct...')"><i class="fas fa-stream"></i> 450 Flux en Direct</div>
+                    <div class="action-btn share" onclick="alert('Forker la donnée')"><i class="fas fa-code-branch"></i> Fork la donnée</div>
+                    <div class="action-btn save" onclick="alert('Suivre l\'Anomalie...')"><i class="far fa-bookmark"></i> Suivre l'Anomalie</div>
                 </div>
             </div>
         </article>
@@ -429,13 +395,13 @@
                 HEATMAP LOADING...
             </div>
             <p style="margin-top: 15px;">**Le Point Chaud de l'Humour est en Europe (CET).** Les données montrent une forte corrélation avec l'heure du déjeuner.</p>
-            <button>Explorer le Tableau de Bord Cosmique</button>
+            <button onclick="alert('Redirection vers le tableau de bord cosmique...')">Explorer le Tableau de Bord Cosmique</button>
         </div>
 
         <div class="card">
             <h3>Communautés Top-Secret</h3>
             <p>Accédez aux analyses les plus profondes sur la psychologie du rire.</p>
-            <button>Accès Chiffré</button>
+            <button onclick="alert('Authentification requise...')">Accès Chiffré</button>
         </div>
 
         <div class="card">
@@ -448,5 +414,72 @@
 
 </div>
 
+<script>
+    // 1. Basculement Thème Clair/Sombre
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        
+        // Mettre à jour l'icône
+        const icon = document.getElementById('theme-toggle').querySelector('i');
+        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    // Au chargement, définir l'icône initiale
+    document.addEventListener('DOMContentLoaded', () => {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const icon = document.getElementById('theme-toggle').querySelector('i');
+        icon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+
+    // 2. Interactivité du système de Vote (Simulé)
+    function vote(clickedButton, direction) {
+        const postVoteTally = clickedButton.closest('.post-vote-tally');
+        const upBtn = postVoteTally.querySelector('.fa-arrow-up');
+        const downBtn = postVoteTally.querySelector('.fa-arrow-down');
+        const countElement = postVoteTally.querySelector('.vote-count');
+        
+        // Récupère l'état actuel et le compte (simplifié pour la démo)
+        let isUpvoted = upBtn.classList.contains('upvoted');
+        let isDownvoted = downBtn.classList.contains('downvoted');
+        
+        // Fonctionnalité de vote (Logique simplifiée)
+        if (direction === 1) { // Upvote
+            if (isUpvoted) {
+                upBtn.classList.remove('upvoted'); // Annuler Upvote
+            } else {
+                upBtn.classList.add('upvoted'); // Upvote
+                downBtn.classList.remove('downvoted'); // Annuler Downvote si présent
+            }
+        } else if (direction === -1) { // Downvote
+            if (isDownvoted) {
+                downBtn.classList.remove('downvoted'); // Annuler Downvote
+            } else {
+                downBtn.classList.add('downvoted'); // Downvote
+                upBtn.classList.remove('upvoted'); // Annuler Upvote si présent
+            }
+        }
+        
+        // Mettre à jour le compteur (juste un feedback visuel simple)
+        let currentCount = countElement.textContent;
+        // Ceci est une simulation. En réalité, vous feriez un appel API ici.
+        console.log("Nouveau statut de vote enregistré."); 
+        // alert(`Vote enregistré. Nouveau statut pour ${currentCount}.`);
+    }
+
+    // 3. Gestion des liens actifs dans la barre latérale
+    function setActiveLink(clickedLink) {
+        // Supprime la classe 'active' de tous les liens
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        // Ajoute la classe 'active' au lien cliqué
+        clickedLink.classList.add('active');
+    }
+</script>
 </body>
 </html>
