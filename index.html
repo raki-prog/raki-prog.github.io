@@ -4,13 +4,12 @@
 <meta charset="UTF-8">
 <title>QU-7: The Laughter Archive | Project HUMOR_QUANT</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
-<style>
-/* ... (Your CSS remains the same) ... */
-/* -------------------------------------- */
-/* 1. DYSTOPIAN LAB AESTHETIC STYLES */
-/* -------------------------------------- */
 
-/* Reset */
+<style>
+
+/* -------------------------------------- */
+/* 0. RESET */
+/* -------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -18,61 +17,150 @@
 }
 
 :root {
-    /* Dystopian Palette */
-    --color-bg-dark: #121217;       /* Deep Navy/Black */
-    --color-panel-dark: #1e1e24;    /* Slightly lighter panel background */
-    --color-neon-green: #39ff14;    /* Electric Neon Green (Data/Accent) */
-    --color-text-light: #e0e0e0;    /* Muted White for body text */
-    --color-border-glitch: #444455; /* Subtle border color */
+    --color-bg-dark: #121217;
+    --color-panel-dark: #1e1e24;
+    --color-neon-green: #39ff14;
+    --color-text-light: #e0e0e0;
+    --color-border-glitch: #444455;
 }
 
 body {
-    font-family: 'Source Code Pro', monospace; /* Monospaced for terminal vibe */
+    font-family: 'Source Code Pro', monospace;
     background: var(--color-bg-dark);
     color: var(--color-text-light);
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
+
 /* -------------------------------------- */
-/* 2. FULL-SCREEN VIDEO INTRO STYLES */
+/* 1. BOOT SCREEN */
 /* -------------------------------------- */
 
-/* Container for the full-screen video */
+#boot-screen {
+    position: fixed;
+    z-index: 10000;
+    background: var(--color-bg-dark);
+    color: var(--color-neon-green);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeOutBoot 3s ease-out 3s forwards;
+}
+
+.boot-text p {
+    margin: 6px 0;
+}
+
+.blink {
+    animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.1; }
+}
+
+@keyframes fadeOutBoot {
+    to { opacity: 0; visibility: hidden; }
+}
+
+
+/* -------------------------------------- */
+/* 2. SCANLINE OVERLAY */
+/* -------------------------------------- */
+
+body::after {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(rgba(18,18,23,0.06) 50%, rgba(18,18,23,0.14) 50%) repeat-y,
+        repeating-linear-gradient(90deg, rgba(57,255,20,0.02) 0, rgba(57,255,20,0.02) 2px, transparent 2px, transparent 4px);
+    background-size: 100% 3px, 3px 100%;
+    z-index: 999;
+    mix-blend-mode: overlay;
+}
+
+
+/* -------------------------------------- */
+/* 3. GLITCH TEXT */
+/* -------------------------------------- */
+
+.glitch {
+    position: relative;
+    color: var(--color-neon-green);
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+}
+
+.glitch::before {
+    animation: glitch 2s infinite linear alternate-reverse;
+    text-shadow: -2px 0 red;
+}
+
+.glitch::after {
+    animation: glitch2 2s infinite linear alternate-reverse;
+    text-shadow: 2px 0 blue;
+}
+
+@keyframes glitch {
+    0% { clip-path: inset(80% 0 0 0); }
+    20% { clip-path: inset(10% 0 85% 0); }
+    45% { clip-path: inset(50% 0 40% 0); }
+    60% { clip-path: inset(70% 0 20% 0); }
+    100% { clip-path: inset(90% 0 1% 0); }
+}
+
+@keyframes glitch2 {
+    0% { clip-path: inset(0 0 80% 0); }
+    25% { clip-path: inset(40% 0 50% 0); }
+    55% { clip-path: inset(60% 0 20% 0); }
+    85% { clip-path: inset(30% 0 60% 0); }
+    100% { clip-path: inset(80% 0 5% 0); }
+}
+
+
+/* -------------------------------------- */
+/* 4. FULLSCREEN VIDEO */
+/* -------------------------------------- */
+
 .intro-video {
     position: relative;
     width: 100vw;
-    height: 100vh; /* Make it full viewport height */
+    height: 100vh;
     overflow: hidden;
-    background: black; /* Backup color */
+    background: black;
 }
 
-/* Style for the video element itself */
 .intro-video video {
     position: absolute;
     top: 50%;
     left: 50%;
-    /* This set of properties ensures the video covers the entire container while maintaining aspect ratio */
     min-width: 100%;
     min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 1;
     transform: translate(-50%, -50%);
 }
 
-/* Content over the video (e.g., title, message) */
 .intro-content {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2; /* Must be higher than the video */
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text readability */
+    background: rgba(0,0,0,0.4);
     color: var(--color-neon-green);
     text-align: center;
 }
@@ -80,7 +168,6 @@ body {
 .intro-content h1 {
     font-size: 3em;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px var(--color-neon-green);
 }
 
 .intro-content p {
@@ -93,7 +180,7 @@ body {
     position: absolute;
     bottom: 20px;
     font-size: 1.2em;
-    animation: pulse 2s infinite; /* Add a subtle pulse animation */
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
@@ -102,13 +189,11 @@ body {
     100% { opacity: 0.5; }
 }
 
+
 /* -------------------------------------- */
-/* 3. MAIN WEBSITE STYLES (Adjusted from previous) */
+/* 5. HEADER */
 /* -------------------------------------- */
 
-/* The main website content starts immediately after the intro video element */
-
-/* HEADER: Command Console */
 header {
     display: flex;
     align-items: center;
@@ -116,16 +201,15 @@ header {
     padding: 10px 16px;
     background: var(--color-panel-dark);
     border-bottom: 2px solid var(--color-neon-green);
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.4); /* Neon glow effect */
+    box-shadow: 0 0 10px rgba(57,255,20,0.4);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 500;
 }
 
 .logo {
     font-weight: 700;
     font-size: 20px;
-    color: var(--color-neon-green);
     text-shadow: 0 0 5px var(--color-neon-green);
 }
 
@@ -136,15 +220,25 @@ header {
 .search input {
     width: 70%;
     padding: 8px 12px;
-    border-radius: 4px;
     border: 1px solid var(--color-neon-green);
     background: var(--color-bg-dark);
     color: var(--color-text-light);
-    font-family: 'Source Code Pro', monospace;
-    box-shadow: inset 0 0 3px rgba(57, 255, 20, 0.6);
+    box-shadow: inset 0 0 4px rgba(57,255,20,0.6);
+    caret-color: var(--color-neon-green);
+    animation: glowPulse 2s infinite;
 }
 
-/* GRID LAYOUT */
+@keyframes glowPulse {
+    0% { box-shadow: inset 0 0 4px rgba(57,255,20,0.5); }
+    50% { box-shadow: inset 0 0 8px rgba(57,255,20,1); }
+    100% { box-shadow: inset 0 0 4px rgba(57,255,20,0.5); }
+}
+
+
+/* -------------------------------------- */
+/* 6. LAYOUT */
+/* -------------------------------------- */
+
 .layout {
     display: grid;
     grid-template-columns: 220px minmax(500px, 640px) 280px;
@@ -154,11 +248,9 @@ header {
     padding: 0 16px;
 }
 
-/* CARDS (Sidebars and Posts) */
 .card {
     background: var(--color-panel-dark);
     border: 1px solid var(--color-border-glitch);
-    border-radius: 0px; /* Sharp corners for tech/lab look */
     padding: 16px;
     margin-bottom: 20px;
 }
@@ -166,50 +258,39 @@ header {
 .card h3 {
     margin-bottom: 8px;
     color: var(--color-neon-green);
-    text-shadow: 0 0 3px rgba(57, 255, 20, 0.4);
 }
 
-/* SIDEBAR LEFT: Directory Access */
-.sidebar-left {
+.sidebar-left,
+.sidebar-right {
     position: sticky;
     top: 80px;
-    height: max-content;
 }
 
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    margin-bottom: 4px;
-    cursor: pointer;
-    color: var(--color-text-light);
-    border-left: 2px solid transparent;
-    transition: all 0.2s;
-}
 
-.nav-link:hover {
-    background: #2e2e36; /* Darker hover */
-    color: var(--color-neon-green);
-    border-left: 2px solid var(--color-neon-green);
-}
+/* -------------------------------------- */
+/* 7. POST */
+/* -------------------------------------- */
 
-/* MAIN FEED (Data Logs/Posts) */
 .post {
     background: var(--color-panel-dark);
     border: 1px solid var(--color-border-glitch);
     overflow: hidden;
     margin-bottom: 20px;
-    transition: box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: reveal 0.6s forwards ease-out;
 }
 
+.post:nth-child(1) { animation-delay: 0.1s; }
+.post:nth-child(2) { animation-delay: 0.3s; }
+.post:nth-child(3) { animation-delay: 0.5s; }
+
 .post:hover {
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); /* Subtle glow on hover */
+    box-shadow: 0 0 15px rgba(57,255,20,0.2);
 }
 
 .post img {
     width: 100%;
-    display: block;
     border-bottom: 1px dashed var(--color-border-glitch);
 }
 
@@ -228,40 +309,17 @@ header {
     font-weight: 700;
     margin-top: 6px;
     margin-bottom: 6px;
-    color: var(--color-text-light);
 }
 
-/* SIDE RIGHT: System Monitors */
-.sidebar-right {
-    position: sticky;
-    top: 80px;
-    height: max-content;
-}
-
-.card p {
-    font-size: 14px;
-    color: var(--color-text-light);
-    margin-bottom: 8px;
-}
-
-.card button {
-    background: var(--color-neon-green);
-    color: var(--color-bg-dark);
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: 700;
-    border-radius: 0;
-}
-
-.card button:hover {
-    opacity: 0.9;
+@keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
 }
 
 
 /* -------------------------------------- */
-/* 4. RESPONSIVE LAYOUT */
+/* 8. RESPONSIVE */
 /* -------------------------------------- */
+
 @media(max-width: 1000px) {
     .layout {
         grid-template-columns: minmax(500px, 640px);
@@ -274,21 +332,35 @@ header {
 
 </style>
 </head>
+
 <body>
 
+<!-- BOOT -->
+<div id="boot-screen">
+  <div class="boot-text">
+    <p>Initializing QU-7 Neural Cluster...</p>
+    <p>Decrypting Humor Archives (2014-2017)...</p>
+    <p>Loading Gelastic Vector Library...</p>
+    <p class="blink">> ACCESSING DATABASE</p>
+  </div>
+</div>
+
+
+<!-- VIDEO INTRO -->
 <section class="intro-video">
     <video autoplay muted loop playsinline>
         <source src="Dystopian_Data_Lab_Video_Prompt.mp4" type="video/mp4">
-        Your browser does not support the video tag.
     </video>
 
     <div class="intro-content">
-        <h1>// PROJECT HUMOR_QUANT INITIATED //</h1>
+        <h1 class="glitch" data-text="// PROJECT HUMOR_QUANT INITIATED //">// PROJECT HUMOR_QUANT INITIATED //</h1>
         <p>Searching Reddit Archives (2014-2017) for lost Gelastic Impulses.</p>
-        <p class="scroll-indicator">--- SCROLL TO ACCESS DATABASE ---</p>
+        <p class="scroll-indicator">▼ ACCESS REDDIT DATA NEXUS ▼</p>
     </div>
 </section>
 
+
+<!-- HEADER -->
 <header>
     <div class="logo">[QU-7: LAUGHTER ARCHIVE]</div>
     <div class="search">
@@ -296,63 +368,69 @@ header {
     </div>
 </header>
 
+
+<!-- MAIN LAYOUT -->
 <div class="layout">
 
+    <!-- LEFT -->
     <aside class="sidebar-left">
         <div class="card">
-            <h3>:: DIRECTORY ACCESS ::</h3>
-            <div class="nav-link">🏠 [H-SCORE FEED]</div>
-            <div class="nav-link">🔥 [POPULARITY VECTORS]</div>
-            <div class="nav-link">🔍 [TOPIC DECONSTRUCTION]</div>
-            <div class="nav-link">➕ [INITIATE NEW QUERY]</div>
+            <h3>:: DATABASE INDEX ::</h3>
+            <div>🏠 H-SCORE FEED</div>
+            <div>🔥 POPULARITY VECTORS</div>
+            <div>🔍 TOPIC DECONSTRUCTION</div>
+            <div>➕ NEW QUERY</div>
         </div>
-        
     </aside>
 
+
+    <!-- CENTER -->
     <main>
+
         <article class="post">
-            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=IMAGE+LOG+001+--+H-SCORE+9.4" alt="Data Image">
+            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=IMAGE+LOG+001+--+H-SCORE+9.4">
             <div class="post-info">
                 <div class="subreddit">SOURCE: r/Puns_Archive • LOG_DATE: 2017.03.11</div>
-                <div class="post-title">LOG: Subject P-44: Attempted Gelastic Isolation</div>
-                <p><strong>[LAB MEMO]</strong> Analysis suggests this 'Pun' sub-vector generated an unusually high H-Score. It reads: "My fear of speed bumps is growing. I’m getting over it slowly." We must isolate the syntactic anomaly.</p>
+                <div class="post-title">LOG 001: Gelastic Isolation - Subject P-44</div>
+                <p><b>[LAB MEMO]</b> Analysis suggests this 'Pun' sub-vector generated an unusually high H-Score: “My fear of speed bumps is growing. I’m getting over it slowly.” We must isolate the syntactic anomaly.</p>
             </div>
         </article>
 
         <article class="post">
-            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=VISUAL+METRIC:+SENTIMENT+DISPERSION" alt="Data Metric">
+            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=SENTIMENT+DISPERSION+VECTOR">
             <div class="post-info">
                 <div class="subreddit">SOURCE: r/Methodology_Docs • LOG_DATE: 2014.11.22</div>
-                <div class="post-title">REPORT: Defining the Humor Quantification (H-Score) Metric</div>
-                <p>The **H-Score** is calculated using a complex function of comment entropy, upvote acceleration, and a proprietary **Gelastic Sentiment Vector (GSV)**. Initial results are inconclusive regarding genuine 'laughter' simulation.</p>
+                <div class="post-title">TECH REPORT: Defining the H-Score Metric</div>
+                <p>The <b>H-Score</b> is calculated using comment entropy, upvote acceleration, and a proprietary Gelastic Sentiment Vector (GSV). Initial results are inconclusive regarding genuine 'laughter' simulation.</p>
             </div>
         </article>
 
         <article class="post">
-            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=TEXT+ARCHIVE+SNAPSHOT" alt="Text Archive">
+            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=TEXT+ARCHIVE">
             <div class="post-info">
                 <div class="subreddit">SOURCE: r/OldJokes • LOG_DATE: 2016.08.01</div>
-                <div class="post-title">ARCHIVE SNAPSHOT: Why don't scientists trust atoms?</div>
-                <p>...because they make up everything! (H-Score: 6.1). Note the simplicity. Further analysis required on the 'Groan Factor' influence.</p>
+                <div class="post-title">ARCHIVE 003: Why don’t scientists trust atoms?</div>
+                <p>...because they make up everything! (H-Score: 6.1). Minimalist formulation. Further analysis required on 'Groan Vector’ influence.</p>
             </div>
         </article>
 
     </main>
 
+
+    <!-- RIGHT -->
     <aside class="sidebar-right">
         <div class="card">
             <h3>:: SYSTEM STATUS ::</h3>
-            <p><strong>STATUS:</strong> Data Ingestion: 100%</p>
-            <p><strong>HUMOR_LEVEL:</strong> 0.0000% (Baseline Flatness)</p>
-            <p><strong>QU-7 CORE:</strong> Nominal</p>
-            <button>VIEW SYSTEM LOGS (ACCESS CODE REQUIRED)</button>
+            <p><b>INGESTION:</b> 100%</p>
+            <p><b>HUMOR LEVEL:</b> 0.0000% (Baseline Flatness)</p>
+            <p><b>QU-7 CORE:</b> Nominal</p>
         </div>
 
         <div class="card">
-            <h3>:: ARCHIVE DIRECTIVES ::</h3>
-            <p>1. **ISOLATE** the Gelastic Trigger.</p>
-            <p>2. **QUANTIFY** the Joke-Component Vector.</p>
-            <p>3. **REVERSE-ENGINEER** Laughter.</p>
+            <h3>:: DIRECTIVES ::</h3>
+            <p>1. ISOLATE Gelastic Trigger.</p>
+            <p>2. QUANTIFY Joke Vector.</p>
+            <p>3. REVERSE-ENGINEER Laughter.</p>
         </div>
     </aside>
 
