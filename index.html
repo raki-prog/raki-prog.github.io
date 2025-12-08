@@ -32,6 +32,81 @@ body {
     line-height: 1.5;
 }
 
+/* -------------------------------------- */
+/* 2. FULL-SCREEN VIDEO INTRO STYLES */
+/* -------------------------------------- */
+
+/* Container for the full-screen video */
+.intro-video {
+    position: relative;
+    width: 100vw;
+    height: 100vh; /* Make it full viewport height */
+    overflow: hidden;
+    background: black; /* Backup color */
+}
+
+/* Style for the video element itself */
+.intro-video video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* This set of properties ensures the video covers the entire container while maintaining aspect ratio */
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+/* Content over the video (e.g., title, message) */
+.intro-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Must be higher than the video */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text readability */
+    color: var(--color-neon-green);
+    text-align: center;
+}
+
+.intro-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--color-neon-green);
+}
+
+.intro-content p {
+    font-size: 1.5em;
+    color: var(--color-text-light);
+    margin-bottom: 40px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    font-size: 1.2em;
+    animation: pulse 2s infinite; /* Add a subtle pulse animation */
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* -------------------------------------- */
+/* 3. MAIN WEBSITE STYLES (Adjusted from previous) */
+/* -------------------------------------- */
+
+/* The main website content starts immediately after the intro video element */
+
 /* HEADER: Command Console */
 header {
     display: flex;
@@ -182,19 +257,9 @@ header {
     opacity: 0.9;
 }
 
-/* Glitch Animation (Optional enhancement for text) */
-@keyframes glitch-flicker {
-    0% { opacity: 1; }
-    50% { opacity: 0.8; text-shadow: 1px 0 0 var(--color-neon-green); }
-    100% { opacity: 1; }
-}
-.logo, .nav-link:hover {
-    /* animation: glitch-flicker 4s infinite step-end; */
-}
-
 
 /* -------------------------------------- */
-/* 2. RESPONSIVE LAYOUT */
+/* 4. RESPONSIVE LAYOUT */
 /* -------------------------------------- */
 @media(max-width: 1000px) {
     .layout {
@@ -209,6 +274,19 @@ header {
 </style>
 </head>
 <body>
+
+<section class="intro-video">
+    <video autoplay muted loop playsinline>
+        <source src="your-story-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="intro-content">
+        <h1>// PROJECT HUMOR_QUANT INITIATED //</h1>
+        <p>Searching Reddit Archives (2014-2017) for lost Gelastic Impulses.</p>
+        <p class="scroll-indicator">--- SCROLL TO ACCESS DATABASE ---</p>
+    </div>
+</section>
 
 <header>
     <div class="logo">[QU-7: LAUGHTER ARCHIVE]</div>
