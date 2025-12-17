@@ -194,6 +194,47 @@ main.report {
 }
 ul { margin-left:20px; }
 
+.dataset-intro {
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.dataset-table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.dataset-table th,
+.dataset-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #2a2a2a;
+    vertical-align: top;
+}
+.dataset-subtitle {
+    margin-top: 2.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    color: #6aff6a;
+    font-weight: 600;
+}
+
+.dataset-table th {
+    text-align: left;
+    color: #6aff6a;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.dataset-table tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.02);
+}
+
+
 /* -------------------------------------- */
 /* REDDIT ARCHIVE POSTS */
 /* -------------------------------------- */
@@ -325,20 +366,63 @@ ul { margin-left:20px; }
 
 
 
-    <!-- DATASET -->
-    <section id="dataset" class="report-section">
-        <h2 class="glitch" data-text="01 / DATASET">01 / DATASET</h2>
-        <p><strong>Time window:</strong> 2014–2017</p>
-        <p><strong>Subreddits:</strong> r/jokes, r/puns, r/standupshots, ...</p>
-        <p><strong>Data:</strong> post body, title, upvotes, comments, timestamp</p>
-        <p><strong>Total:</strong> 95k posts, 600k comments</p>
-        <p><!-- INSERT DATA PIPELINE TEXT HERE --></p>
-    </section>
+<section id="dataset" class="report-section">
+    <h2 class="glitch" data-text="01 / DATASET">01 / DATASET</h2>
+
+    <!-- PRIMARY DATASET -->
+    <h3 class="dataset-subtitle">01.1 / PRIMARY DATASET</h3>
+
+    <p class="dataset-intro">
+        The following dataset was originally assembled for large-scale analysis of online community interaction and conflict.
+        It was later repurposed by the lab for exploratory analysis beyond its intended scope.
+    </p>
+
+    <table class="dataset-table">
+        <tr>
+            <th>Component</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Source Platform</td>
+            <td>Reddit (publicly available posts and hyperlinks)</td>
+        </tr>
+        <tr>
+            <td>Time Range</td>
+            <td>January 2014 – April 2017</td>
+        </tr>
+        <tr>
+            <td>Nodes</td>
+            <td>55,863 subreddits (online communities)</td>
+        </tr>
+        <tr>
+            <td>Edge Attributes</td>
+            <td>Timestamp, sentiment label, textual property vector</td>
+        </tr>
+        <tr>
+            <td>Text Features</td>
+            <td>86-dimensional vectors capturing structural, linguistic, sentiment, and LIWC-based properties</td>
+        </tr>
+        <tr>
+            <td>Subreddit Embeddings</td>
+            <td>51,278 vector representations of subreddit semantics and interaction patterns</td>
+        </tr>
+    </table>
+
+    <!-- EXTENDED DATASET -->
+    <h3 class="dataset-subtitle">01.2 / EXTENDED DATASET (CONTENT RECOVERY)</h3>
+
+    <p class="dataset-note">
+        To move forward, the lab used the available post identifiers to recover what is missing. Through web scraping of archived Reddit pages, titles, post bodies, and related comments are retrieved and reattached to the original records. This step allows the analysis to shift from abstract links to the language that produced them.
+    </p>
+
+</section>
+
+
 
 
     <!-- MODEL -->
     <section id="model" class="report-section">
-        <h2 class="glitch" data-text="02 / HUMOR QUANTIFICATION">02 / HUMOR QUANTIFICATION</h2>
+        <h2 class="glitch" data-text="02 / HUMOR MODEL">02 / HUMOR MODEL</h2>
         <p>The <b>H-Score</b> measures “gelastic density” using:</p>
         <ul>
             <li>Comment entropy</li>
