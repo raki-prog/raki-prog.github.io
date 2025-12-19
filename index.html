@@ -201,6 +201,41 @@ body::after {
   mix-blend-mode: screen; 
   pointer-events: all; 
 }
+
+.observation-block {
+    max-width: 620px;
+    margin: 2.5rem auto;
+    padding: 12px;
+    background: rgba(18, 18, 23, 0.6);
+    border: 1px solid rgba(57, 255, 20, 0.25);
+    box-shadow:
+        0 0 18px rgba(57, 255, 20, 0.15),
+        inset 0 0 12px rgba(57, 255, 20, 0.05);
+}
+
+.observation-header {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--color-neon-green);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.observation-block img {
+    width: 100%;
+    display: block;
+    filter: grayscale(0.35) contrast(1.05);
+}
+
+.observation-meta {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #9aa3ad;
+    text-align: right;
+    letter-spacing: 0.08em;
+}
+
+
 @keyframes pulse {0%,100%{opacity:0.4;}50%{opacity:1;}}
 
 /* -------------------------------------- */
@@ -610,12 +645,20 @@ ul { margin-left:20px; }
             and inefficient, filled with short posts, repetitions, arguments, and strange markers such as 
             “hhh” and “lol,” offering no clear informational purpose.
         </p>
-        <div class="intro-image-col">
-        <img src="images/found-the-dataset.png" 
-             alt="Recovered Reddit archive disk labeled 2014–2017" />
-        <span class="image-caption">
-        </span>
+        <div class="observation-block">
+    <div class="observation-header">
+        DATASET DISCOVERY — STORAGE MEDIUM
     </div>
+
+    <img
+        src="images/found-the-dataset.png"
+        alt="Physical storage medium containing Reddit data archive (2014–2017)">
+
+    <div class="observation-meta">
+        Source identified · Integrity verified
+    </div>
+</div>
+
 
     <div class="archive-block anomaly">
         <span class="label"></span>
@@ -837,6 +880,21 @@ ul { margin-left:20px; }
         the lab began to isolate forms of expression that repeatedly triggered anomalous
         reactions in the humor classifier.
     </p>
+    <div class="observation-block">
+    <div class="observation-header">
+        OBSERVATION 
+    </div>
+
+    <img
+        src="images/understand-laughter.png"
+        alt="Observed human facial response associated with laughter">
+
+    <div class="observation-meta">
+        Status: Unclassified · Interpretation pending
+    </div>
+    </div>
+
+
 </section>
 
 
