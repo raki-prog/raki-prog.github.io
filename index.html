@@ -279,6 +279,232 @@ ul { margin-left:20px; }
     letter-spacing: 0.05em;
 }
 
+.plot-image {
+    width: 100%;
+    max-width: 700px;      /* ⬅ controls how big it gets */
+    max-height: 380px;     /* ⬅ prevents vertical dominance */
+    object-fit: contain;  /* keeps proportions */
+    display: block;
+    margin: 0 auto;     
+    filter: invert(1);
+    mix-blend-mode: screen;
+}
+
+
+/* =========================
+   HUMOR MODEL — Visual layer
+   Works with your existing dystopian palette.
+========================= */
+
+.model-section { margin-top: 2.5rem; }
+
+.model-grid{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.model-card{
+  position: relative;
+  background: rgba(30,30,36,0.55);
+  border: 1px solid rgba(57,255,20,0.18);
+  box-shadow: 0 0 18px rgba(57,255,20,0.10), inset 0 0 10px rgba(57,255,20,0.05);
+  padding: 18px 18px 16px;
+  overflow: hidden;
+}
+
+/* subtle scanline shimmer on cards */
+.model-card::after{
+  content:"";
+  position:absolute; inset:-40% -20%;
+  background: linear-gradient(transparent 0%, rgba(57,255,20,0.06) 50%, transparent 100%);
+  transform: rotate(12deg);
+  animation: sweep 7s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes sweep{
+  0%   { transform: translateX(-40%) rotate(12deg); opacity: 0; }
+  15%  { opacity: 0.35; }
+  50%  { opacity: 0.18; }
+  100% { transform: translateX(40%) rotate(12deg); opacity: 0; }
+}
+
+.model-card--wide{
+  grid-column: 1 / -1;
+}
+
+.model-tag{
+  display:inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-neon-green);
+  opacity: 0.9;
+  padding: 6px 10px;
+  border: 1px solid rgba(57,255,20,0.25);
+  background: rgba(18,18,23,0.7);
+  margin-bottom: 10px;
+}
+
+.model-lead{
+  font-size: 1.05rem;
+  color: #e6e6e6;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.model-text{
+  font-size: 1rem;
+  color: #d8d8d8;
+  line-height: 1.7;
+}
+
+.model-divider{
+  height:1px;
+  background: linear-gradient(90deg, rgba(57,255,20,0.0), rgba(57,255,20,0.35), rgba(57,255,20,0.0));
+  margin: 12px 0 12px;
+}
+
+.model-footnote{
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size: 0.92rem;
+  color: rgba(224,224,224,0.85);
+}
+.model-footnote .dot{
+  width:8px; height:8px; border-radius:50%;
+  background: rgba(255,77,77,0.9);
+  box-shadow: 0 0 10px rgba(255,77,77,0.35);
+}
+
+/* Pipeline */
+.pipeline{
+  list-style:none;
+  margin-top: 6px;
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pipeline-step{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding: 10px 10px;
+  border: 1px dashed rgba(57,255,20,0.18);
+  background: rgba(18,18,23,0.6);
+}
+
+.step-badge{
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: #0b0e11;
+  background: var(--color-neon-green);
+  padding: 6px 8px;
+  font-weight: 700;
+  min-width: 38px;
+  text-align:center;
+}
+
+.step-title{
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #e6e6e6;
+  margin-bottom: 2px;
+}
+
+.step-desc{
+  font-size: 0.92rem;
+  color: rgba(224,224,224,0.85);
+  line-height: 1.5;
+}
+
+/* Metrics row */
+.metrics{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.metric{
+  padding: 12px;
+  border: 1px solid rgba(57,255,20,0.18);
+  background: rgba(18,18,23,0.55);
+}
+
+.metric-k{
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(224,224,224,0.8);
+}
+
+.metric-v{
+  margin-top: 6px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-neon-green);
+}
+
+.metric-note{
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: rgba(224,224,224,0.85);
+  line-height: 1.45;
+}
+
+/* Callout block */
+.callout{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 12px;
+  align-items: stretch;
+  border: 1px solid rgba(57,255,20,0.18);
+  background: rgba(18,18,23,0.5);
+}
+
+.callout-left{ padding: 12px; }
+.callout-title{
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #eaeaea;
+  margin-bottom: 4px;
+}
+.callout-text{
+  font-size: 0.95rem;
+  color: rgba(224,224,224,0.88);
+  line-height: 1.6;
+}
+
+.callout-right{
+  padding: 12px;
+  border-left: 1px dashed rgba(57,255,20,0.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.quote{
+  font-size: 0.95rem;
+  color: rgba(224,224,224,0.9);
+  line-height: 1.6;
+  text-align: left;
+  position: relative;
+}
+.quote::before{
+  content: "“";
+  color: rgba(57,255,20,0.6);
+  font-weight: 700;
+  font-size: 1.6rem;
+  position: absolute;
+  left: -14px; top: -10px;
+}
+
 
 
 
@@ -338,10 +564,10 @@ ul { margin-left:20px; }
     <nav>
         <a href="#intro">Intro</a>
         <a href="#dataset">Dataset</a>
-        <a href="#model">H-Score</a>
-        <a href="#analysis">Topics</a>
-        <a href="#trends">Trends</a>
-        <a href="#examples">Archive</a>
+        <a href="#model">Model</a>
+        <a href="#analysis">General analysis</a>
+        <a href="#trends">Temporal analysis</a>
+        <a href="#examples">Dynamic analysis</a>
         <a href="#team">Team</a>
     </nav>
 </header>
@@ -469,18 +695,149 @@ ul { margin-left:20px; }
 
 
 
+<!-- MODEL -->
+<section id="model" class="report-section model-section">
+    <h2 class="glitch" data-text="02 / HUMOR MODEL">02 / HUMOR MODEL</h2>
 
-    <!-- MODEL -->
-    <section id="model" class="report-section">
-        <h2 class="glitch" data-text="02 / HUMOR MODEL">02 / HUMOR MODEL</h2>
-        <p>The <b>H-Score</b> measures “gelastic density” using:</p>
-        <ul>
-            <li>Comment entropy</li>
-            <li>Upvote acceleration</li>
-            <li>Gelastic Sentiment Vector (GSV)</li>
-        </ul>
-        <p><!-- INSERT FORMULA OR IMAGE HERE --></p>
-    </section>
+    <div class="model-grid">
+
+        <!-- Left: concise explanation -->
+        <div class="model-card model-card--primary">
+            <div class="model-tag">INHERITED CLASSIFIER</div>
+
+            <p class="model-lead">
+                The Reddit archive contains no explicit humor labels. Manual annotation was not feasible,
+                and no alternative labeling mechanism was available.
+            </p>
+
+            <div class="model-divider"></div>
+
+            <p class="model-text">
+                An existing <b>BERT-based humor classification model</b> was recovered from legacy
+                machine-learning artifacts associated with the dataset.
+                The model encodes text into <b>context-aware embeddings</b> and outputs a binary
+                prediction (<b>funny</b> / <b>not funny</b>) based on semantic coherence and incongruity.
+            </p>
+
+            <div class="model-footnote">
+                <span class="dot"></span>
+                <span>Training procedure undocumented → external validation required.</span>
+            </div>
+        </div>
+
+        <!-- Right: pipeline -->
+        <div class="model-card model-card--pipeline">
+            <div class="model-tag">PIPELINE</div>
+
+            <ol class="pipeline">
+                <li class="pipeline-step">
+                    <div class="step-badge">01</div>
+                    <div class="step-body">
+                        <div class="step-title">Recover</div>
+                        <div class="step-desc">Legacy BERT humor classifier identified.</div>
+                    </div>
+                </li>
+
+                <li class="pipeline-step">
+                    <div class="step-badge">02</div>
+                    <div class="step-body">
+                        <div class="step-title">Validate</div>
+                        <div class="step-desc">
+                            Evaluate on an independent labeled dataset (Kaggle).
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pipeline-step">
+                    <div class="step-badge">03</div>
+                    <div class="step-body">
+                        <div class="step-title">Preserve</div>
+                        <div class="step-desc">
+                            No retraining to preserve original decision behavior.
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pipeline-step">
+                    <div class="step-badge">04</div>
+                    <div class="step-body">
+                        <div class="step-title">Deploy</div>
+                        <div class="step-desc">
+                            Use outputs as probabilistic humor signals.
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Bottom: reliability + plot -->
+        <div class="model-card model-card--wide">
+            <div class="model-tag">RELIABILITY</div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-k">Recall</div>
+                    <div class="metric-v">High</div>
+                    <div class="metric-note">Humor is rarely missed.</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">Precision</div>
+                    <div class="metric-v">Good</div>
+                    <div class="metric-note">Some false positives remain.</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">Accuracy</div>
+                    <div class="metric-v">High</div>
+                    <div class="metric-note">Stable behavior.</div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-left">
+                    <div class="callout-title">Operational Decision</div>
+                    <div class="callout-text">
+                        In the absence of alternatives, the model is adopted as a proxy for humor detection.
+                        Outputs are treated as probabilistic indicators rather than definitive judgment.
+                    </div>
+                </div>
+                <div class="callout-right">
+                    <div class="quote">
+                        The system does not define humor — it inherits a response to it.
+                    </div>
+                </div>
+            </div>
+
+         <!-- Reliability plot -->
+        <div class="plot-wrapper">
+            <div class="dystopia-frame">
+                <div class="plot-label">[ DIAGNOSTIC OUTPUT — MODEL RELIABILITY ]</div>
+
+                <img
+                    src="plots/model_reliability.png"
+                    alt="Model reliability metrics and confusion matrix"
+                    class="plot-image">
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- TOPIC ANALYSIS -->
+<section id="analysis" class="report-section">
+    <h2 class="glitch" data-text="03 / GENERAL ANALYSIS">03 / GENERAL ANALYSIS</h2>
+
+    <p class="analysis-lead">
+        At the time of recovery, the lab had no operational definition of laughter.
+        The archive contained linguistic artifacts associated with an unknown human response,
+        but no contextual framework explaining their function or effect.
+    </p>
+
+    <p>
+        Initial analysis therefore focused on familiarization rather than interpretation.
+        By observing recurring structures and semantic patterns across the dataset,
+        the lab began to isolate forms of expression that repeatedly triggered anomalous
+        reactions in the humor classifier.
+    </p>
+</section>
 
 
 
@@ -561,18 +918,7 @@ ul { margin-left:20px; }
 
 
 
-    <!-- TOPIC ANALYSIS -->
-    <section id="analysis" class="report-section">
-        <h2 class="glitch" data-text="03 / TOPIC DECONSTRUCTION">03 / TOPIC DECONSTRUCTION</h2>
-        <p>Topic modeling reveals recurring patterns:</p>
-        <ul>
-            <li>Puns</li>
-            <li>Absurd inversion</li>
-            <li>Observational humor</li>
-            <li>Dark irony</li>
-        </ul>
-        <p><!-- INSERT TOPIC CHART HERE --></p>
-    </section>
+
 
 
     <!-- TEMPORAL TRENDS -->
