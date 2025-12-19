@@ -168,16 +168,30 @@ body::after {
   background: linear-gradient(180deg, #0f1318 0%, #0b0e11 200%);
   border: 1px solid rgba(56, 255, 136, 0.25);
   box-shadow: 0 0 20px var(--border-glow), inset 0 0 12px rgba(56, 255, 136, 0.08);
-  padding: 1.2rem;
+  padding: 1.0rem;
   max-width: 1200px;
-  margin: 1rem auto;
+  margin: 1rem;
   position: relative;
   overflow: hidden; /* Clips everything outside the green border */
+  margin-bottom: -2rem;
 }
 
 .plot-wrapper {
   width: 100%;
-  height: 450px;    /* This controls how much of the plot you see */
+  height: 500px;    /* This controls how much of the plot you see */
+  overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
+  position: relative;
+}
+.plot-wrapper-2 {
+  width: 100%;
+  height: 350px;    /* This controls how much of the plot you see */
+  overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
+  position: relative;
+}
+
+.plot-wrapper-3 {
+  width: 100%;
+  height: 1000px;    /* This controls how much of the plot you see */
   overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
   position: relative;
 }
@@ -324,7 +338,16 @@ ul { margin-left:20px; }
     filter: invert(1);
     mix-blend-mode: screen;
 }
-
+.plot-image-1 {
+    width: 100%;
+    max-width: 1000px;      /* ⬅ controls how big it gets */
+    max-height: 1000px;     /* ⬅ prevents vertical dominance */
+    object-fit: contain;  /* keeps proportions */
+    display: block;
+    margin: 0 auto;     
+    filter: invert(1);
+    mix-blend-mode: screen;
+}
 
 /* =========================
    HUMOR MODEL — Visual layer
@@ -540,8 +563,95 @@ ul { margin-left:20px; }
   left: -14px; top: -10px;
 }
 
+.analysis-hypothesis,
+.analysis-conclusion {
+    margin: 1.8rem 0;
+    padding: 14px 16px;
+    background: rgba(18, 18, 23, 0.55);
+    border-left: 3px solid rgba(57, 255, 20, 0.6);
+}
+
+.hypothesis-label,
+.conclusion-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-neon-green);
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+.analysis-hypothesis p,
+.analysis-conclusion p {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.system-note {
+    margin-top: 1.2rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: #39ff14;
+    opacity: 0.7;
+}
 
 
+
+.takeaway-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.takeaway-card {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.takeaway-card:hover .card-inner,
+.takeaway-card.active .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: rgba(18, 18, 23, 0.65);
+    border-left: 3px solid #39ff14;
+    padding: 1rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card-front {
+    color: #39ff14;
+    letter-spacing: 0.1em;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    color: #e0e0e0;
+    line-height: 1.5;
+}
 
 
 
@@ -893,9 +1003,198 @@ ul { margin-left:20px; }
         Status: Unclassified · Interpretation pending
     </div>
     </div>
+<p class="analysis-transition">
+    With no reliable semantic definition of humor, the lab adopted a bottom-up strategy.
+    Rather than attempting interpretation, the first step was to examine the language itself:
+    its vocabulary and recurrence.
+</p>
+
+<p>
+    If humor constituted a distinct phenomenon, it was expected to leave measurable traces
+    at the lexical level. The following analyses therefore focus on identifying whether
+    humorous and non-humorous posts differ in their choice of words.
+</p>
+<h3 class="analysis-subtitle">03.1 / Vocabulary Overlap</h3>
+
+<div class="analysis-hypothesis">
+    <div class="hypothesis-label">HYPOTHESIS</div>
+    <p>
+        If humor constitutes a distinct linguistic phenomenon, then humorous posts should
+        rely on a specialized vocabulary that differs significantly from non-humorous content.
+    </p>
+</div>
+
+<p>
+    To test this assumption, the lab compared the lexical overlap between funny and non-funny
+    posts across both titles and bodies. Vocabulary similarity was measured independently
+    for each textual component.
+</p>
+
+<div class="plot-wrapper-2">
+    <div class="dystopia-frame">
+
+        <div class="plot-label">
+            >> DIAGNOSTIC OUTPUT — VOCABULARY OVERLAP
+        </div>
+
+        <img
+            src="plots/vocab-overlap.png"
+            alt="Vocabulary overlap between funny and non-funny posts (titles and bodies)"
+            class="plot-image">
+
+    </div>
+</div>
+
+
+<div class="analysis-conclusion">
+    <div class="conclusion-label">OBSERVATION</div>
+    <p>
+        The results contradict the initial hypothesis. A substantial portion of vocabulary
+        is shared between funny and non-funny posts.
+    </p>
+
+    <p>
+        At this level, humor does not manifest through rare or exclusive words.
+    </p>
+</div>
+
+<p class="system-note">
+>> [ANOMALY] expected lexical divergence not detected<br>
+>> test failed
+</p>
+
+<h3 class="analysis-subtitle">03.2 / Yearly Word Cloud Analysis</h3>
+
+<p>
+    To further explore lexical patterns, word clouds were generated for each year between
+    2014 and 2016, comparing funny and non-funny posts. These visualizations provide an
+    intuitive overview of which words dominate attention in each subset.
+</p>
+<div class="plot-wrapper-3">
+    <div class="dystopia-frame">
+
+        <div class="plot-label">
+            >> DIAGNOSTIC OUTPUT — YEARLY WORD CLOUDS
+        </div>
+
+        <img
+            src="plots/wordclouds_by_year.png"
+            alt="Yearly word clouds comparing funny and non-funny titles"
+            class="plot-image-1">
+
+    </div>
+</div>
+
+
+
+<p>
+    Across years, the word clouds appear largely similar for titles. Common
+    platform-related terms and generic verbs remain prominent regardless of humor label.
+    This suggests that humor does not rely on an immediately identifiable vocabulary,
+    reinforcing the idea that it emerges through context and usage rather than word choice.
+</p>
+
+<h3 class="analysis-subtitle">03.3 / TF-IDF Analysis</h3>
+
+<div class="analysis-hypothesis">
+    <div class="hypothesis-label">HYPOTHESIS</div>
+    <p>
+        If humor is not characterized by a distinct vocabulary, it may still be associated
+        with words that are used more characteristically in humorous contexts than in
+        non-humorous ones.
+    </p>
+</div>
+
+<p>
+    To test this, a TF-IDF analysis was performed to identify terms that are important
+    in funny posts while remaining uncommon in non-funny content, and vice versa.
+</p>
+
+<div class="plot-wrapper-1">
+    <div class="dystopia-frame">
+
+        <div class="plot-label">
+            >> DIAGNOSTIC OUTPUT — TF-IDF COMPARISON
+        </div>
+
+        <img
+            src="plots/TF-IDF.png"
+            alt="TF-IDF comparison between funny and non-funny posts"
+            class="plot-image-1">
+
+    </div>
+</div>
+
+<div class="analysis-conclusion">
+    <div class="conclusion-label">OBSERVATION</div>
+    <p>
+        In titles, words associated with humor are largely tied to Reddit culture and
+        meta-context, while non-funny titles emphasize functional and informational language.
+    </p>
+
+    <p>
+        In bodies, humorous posts exhibit a broader and more expressive vocabulary,
+        whereas non-humorous posts rely more heavily on procedural and problem-solving terms.
+    </p>
+</div>
+
+<h3 class="analysis-subtitle">03.4 / Key Takeaways</h3>
+
+<div class="takeaway-grid">
+
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Shared Vocabulary
+            </div>
+            <div class="card-back">
+                Humor does not rely on unique words.<br>
+                Funny and non-funny posts use the same lexical base.
+            </div>
+        </div>
+    </div>
+
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Contextual Usage
+            </div>
+            <div class="card-back">
+                Humor emerges from framing, emphasis,
+                and expressive combinations rather than vocabulary choice.
+            </div>
+        </div>
+    </div>
+
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Unresolved Question
+            </div>
+            <div class="card-back">
+                If words remain stable, could humor instead
+                evolve across time and cultural context?
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p class="analysis-transition">
+    These observations suggest that humor may not be static.
+    The next step is therefore to examine how humorous expression
+    evolves over time.
+</p>
 
 
 </section>
+
+ <!-- TEMPORAL TRENDS -->
+    <section id="trends" class="report-section">
+        <h2 class="glitch" data-text="04 / TEMPORAL TRENDS">04 / TEMPORAL TRENDS</h2>
+        <p>Humor styles evolve over time influenced by cultural events and meme cycles.</p>
+        <p><!-- INSERT LINE GRAPH HERE --></p>
+    </section>
 
 
 
@@ -979,12 +1278,7 @@ ul { margin-left:20px; }
 
 
 
-    <!-- TEMPORAL TRENDS -->
-    <section id="trends" class="report-section">
-        <h2 class="glitch" data-text="04 / TEMPORAL TRENDS">04 / TEMPORAL TRENDS</h2>
-        <p>Humor styles evolve over time influenced by cultural events and meme cycles.</p>
-        <p><!-- INSERT LINE GRAPH HERE --></p>
-    </section>
+   
 
 
     <!-- ARCHIVE EXAMPLES -->
