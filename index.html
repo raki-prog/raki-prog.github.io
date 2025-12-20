@@ -348,7 +348,15 @@ ul { margin-left:20px; }
     filter: invert(1);
     mix-blend-mode: screen;
 }
-
+.plot-image-2 {
+    width: 100%;
+    max-width: 500px;      /* ⬅ controls how big it gets */
+    max-height: 1000px;     /* ⬅ prevents vertical dominance */
+    object-fit: contain;  /* keeps proportions */
+    display: block;
+    margin: 0 auto;     
+    mix-blend-mode: screen;
+}
 /* =========================
    HUMOR MODEL — Visual layer
    Works with your existing dystopian palette.
@@ -1189,12 +1197,34 @@ ul { margin-left:20px; }
 
 </section>
 
- <!-- TEMPORAL TRENDS -->
-    <section id="trends" class="report-section">
-        <h2 class="glitch" data-text="04 / TEMPORAL TRENDS">04 / TEMPORAL TRENDS</h2>
-        <p>Humor styles evolve over time influenced by cultural events and meme cycles.</p>
-        <p><!-- INSERT LINE GRAPH HERE --></p>
-    </section>
+<!-- TEMPORAL TRENDS -->
+<section id="trends" class="report-section">
+    <h2 class="glitch" data-text="04 / TEMPORAL TRENDS">04 / TEMPORAL TRENDS</h2>
+
+    <p class="analysis-lead">
+        Up to this point, humor appeared structurally stable at the lexical level.
+        However, repeated anomalies suggested that time itself might play a role.
+    </p>
+
+    <p>
+        To test this, the lab examined humor across successive years.
+        What appeared consistent in language began to shift when placed in temporal context.
+    </p>
+
+    <div class="plot-wrapper-3">
+        <div class="dystopia-frame">
+
+            <div class="plot-label">
+                >> A M.E.M.E ???
+            </div>
+
+            <img
+                src="images/meme.png"
+                alt="Researcher exposed to jokes from 2014, 2015, and 2016 showing increasing confusion"
+                class="plot-image-2">
+        </div>
+    </div>
+</section>
 
 
 
