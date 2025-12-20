@@ -10,6 +10,7 @@
 /* RESET */
 /* -------------------------------------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 :root {
     --color-bg-dark: #121217;
@@ -216,6 +217,19 @@ body::after {
   pointer-events: all; 
 }
 
+/* Dark theme plots - no color inversion needed */
+.plot-iframe-dark {
+  width: 140%;      
+  height: 550px;    
+  border: none;
+  transform: scale(1);
+  transform-origin: top left;
+  margin-top: -40px; 
+  margin-left: -30px;
+  pointer-events: all;
+  background: transparent;
+}
+
 .observation-block {
     max-width: 620px;
     margin: 2.5rem auto;
@@ -265,12 +279,38 @@ header {
 }
 .logo { font-size:18px; font-weight:700; }
 nav a {
+    position: relative;
     margin-right:20px;
     color:var(--color-text-light);
     text-decoration:none;
-    transition:0.2s;
+    padding: 4px 8px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
 }
-nav a:hover { color:var(--color-neon-green); }
+nav a:hover { 
+    color:var(--color-neon-green); 
+    transform: translateY(-1px);
+}
+nav a.active {
+    color: var(--color-neon-green);
+    border-bottom: 2px solid var(--color-neon-green);
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-neon-green);
+    box-shadow: 0 0 10px var(--color-neon-green);
+    animation: glowPulse 1.5s ease-in-out infinite;
+}
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 5px var(--color-neon-green); }
+    50% { opacity: 1; box-shadow: 0 0 15px var(--color-neon-green); }
+}
 
 /* -------------------------------------- */
 /* REPORT SECTIONS */
@@ -720,7 +760,7 @@ ul { margin-left:20px; }
         <a href="#model">Model</a>
         <a href="#analysis">General analysis</a>
         <a href="#trends">Temporal analysis</a>
-        <a href="#examples">Dynamic analysis</a>
+        <a href="#dynamic">Dynamic analysis</a>
         <a href="#team">Team</a>
     </nav>
 </header>
@@ -1224,87 +1264,117 @@ ul { margin-left:20px; }
                 class="plot-image-2">
         </div>
     </div>
+
+    <h2 class="glitch" data-text=">> TEMPORAL PLOTS">>> TEMPORAL PLOTS</h2>
+    <br> <br>
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/daily_sentiment.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>   
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/doy_profiles.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>    
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/humor_proportion_all_years.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>   
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/liwc_compare.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>   
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/liwc_heatmap.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>
+    <div class="dystopia-frame">
+    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    
+    <div class="plot-wrapper">
+        <iframe
+        src="plots/month_year_heatmap.html"
+        class="plot-iframe">
+        </iframe>
+    </div>
+    </div>
+
+    <br> <br>
+
 </section>
 
+<!-- DYNAMIC ANALYSIS -->
+<section id="dynamic" class="report-section">
+    <h2 class="glitch" data-text="05 / DYNAMIC ANALYSIS">05 / DYNAMIC ANALYSIS</h2>
+    <div class="dystopia-frame">
+        <div class="plot-label">[ CLUSTERS ] <i> Drag to move - scroll to zoom - hover for more info</i></div>
+        
+        <div class="plot-wrapper">
+            <iframe
+                src="plots/clusters.html"
+                class="plot-iframe-dark">
+            </iframe>
+        </div>
+    </div>
 
+    <br> <br>
 
+    <div class="dystopia-frame">
+        <div class="plot-label">[ NETWORK DYNAMICS ] <i> Drag to move - scroll to zoom - hover for more info</i></div>
+        
+        <div class="plot-wrapper">
+            <iframe
+                src="plots/network.html"
+                class="plot-iframe-dark">
+            </iframe>
+        </div>
+    </div>
 
+</section>
 
+<br> <br>
 
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/daily_sentiment.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
 
     
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/doy_profiles.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
-
-    
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/humor_proportion_all_years.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
-
-    
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/liwc_compare.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
-
-    
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/liwc_heatmap.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
-
-
-<div class="dystopia-frame">
-  <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-  
-  <div class="plot-wrapper">
-    <iframe
-      src="plots/month_year_heatmap.html"
-      class="plot-iframe">
-    </iframe>
-  </div>
-</div>
-
-
-
-
 
 
 
@@ -1347,6 +1417,43 @@ ul { margin-left:20px; }
     </section>
 
 </main>
+
+<script>
+// Scroll Spy for Navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    function updateActiveLink() {
+        const scrollPos = window.scrollY + 150; // Offset for header height
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+        
+        // Handle case when at the very top of the page
+        if (window.scrollY < 100) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const introLink = document.querySelector('nav a[href="#intro"]');
+            if (introLink) introLink.classList.add('active');
+        }
+    }
+    
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink(); // Run on page load
+});
+</script>
 
 </body>
 </html>
