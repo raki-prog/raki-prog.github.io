@@ -177,6 +177,25 @@ body::after {
   margin-bottom: -2rem;
 }
 
+/* Dark dystopia frame - no color inversion needed for dark-themed content */
+.dystopia-frame-dark {
+  background: transparent;
+  border: 1px solid rgba(56, 255, 136, 0.25);
+  box-shadow: 0 0 20px var(--border-glow), inset 0 0 12px rgba(56, 255, 136, 0.08);
+  padding: 1.0rem;
+  max-width: 1200px;
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -2rem;
+}
+
+/* Remove inversion for images inside dark frame */
+.dystopia-frame-dark img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
 .plot-wrapper {
   width: 100%;
   height: 500px;    /* This controls how much of the plot you see */
@@ -1119,14 +1138,14 @@ ul { margin-left:20px; }
     intuitive overview of which words dominate attention in each subset.
 </p>
 <div class="plot-wrapper-3">
-    <div class="dystopia-frame">
+    <div class="dystopia-frame-dark">
 
         <div class="plot-label">
             >> DIAGNOSTIC OUTPUT — YEARLY WORD CLOUDS
         </div>
 
         <img
-            src="plots/wordclouds_by_year.png"
+            src="plots/wordclouds_nobg.png"
             alt="Yearly word clouds comparing funny and non-funny titles"
             class="plot-image-1">
 
