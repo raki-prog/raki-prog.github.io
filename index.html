@@ -1153,6 +1153,155 @@ ul { margin-left:20px; }
 
 @keyframes reveal { to {opacity:1; transform:translateY(0);} }
 
+/* Feature correlation cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  position: relative;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, #0f1318, #0b0e11);
+  border: 1px solid rgba(56,255,136,0.18);
+  box-shadow: 0 0 18px rgba(56,255,136,0.12);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+}
+
+.feature-card.increase {
+  border-color: rgba(56,255,136,0.35);
+  box-shadow: 0 0 18px rgba(56,255,136,0.18);
+}
+
+.feature-card.decrease {
+  border-color: rgba(255,90,90,0.35);
+  box-shadow: 0 0 18px rgba(255,90,90,0.18);
+}
+
+.feature-direction {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.feature-card.increase .feature-direction {
+  color: #7fffd4;
+}
+
+.feature-card.decrease .feature-direction {
+  color: #ff6b6b;
+}
+
+.feature-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  font-family: monospace;
+}
+
+.feature-meaning {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+.feature-arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.feature-card.increase .feature-arrow {
+  color: #38ff88;
+}
+
+.feature-card.decrease .feature-arrow {
+  color: #ff5a5a;
+}
+
+/* Hover stats overlay */
+.feature-stats {
+  position: absolute;
+  inset: 0;
+  padding: 1.4rem;
+  background: rgba(10,14,18,0.97);
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: #cfd8dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+}
+
+.feature-card:hover .feature-stats {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.feature-stat-row:last-child {
+  border-bottom: none;
+}
+
+.feature-stat-label {
+  opacity: 0.6;
+}
+
+.feature-stat-value {
+  font-weight: 600;
+}
+
+.feature-stat-value.positive {
+  color: #38ff88;
+}
+
+.feature-stat-value.negative {
+  color: #ff5a5a;
+}
+
+.feature-correlation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.correlation-arrow {
+  font-size: 1.2rem;
+}
+
+/* Subtle hint */
+.feature-card::after {
+  content: "↳ details";
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.65rem;
+  opacity: 0.3;
+}
+
 </style>
 </head>
 
@@ -1591,7 +1740,182 @@ ul { margin-left:20px; }
     reinforcing the idea that it emerges through context and usage rather than word choice.
 </p>
 
-<h3 class="analysis-subtitle">03.3 / TF-IDF Analysis</h3>
+<h3 class="analysis-subtitle">03.3 / Feature Correlation Analysis</h3>
+
+<p class="analysis-lead">
+    Beyond vocabulary, the labs examines <b>linguistic and emotional features</b> 
+    collected from different libraries such as NTLK, VADER, and NRC Lexicon,
+    to identify specific text characteristics that they thought could correlate with humor classification.
+    The features below showed the strongest associations with humor labels from over 1 Million posts and comments.
+</p>
+
+<div class="feature-grid">
+
+    <!-- INCREASES FUNNINESS -->
+    <div class="feature-card increase">
+        <div class="feature-direction">Increases Funniness</div>
+        <div class="feature-arrow">▲</div>
+        <div class="feature-name">FRAC_SPECIAL</div>
+        <div class="feature-meaning">
+            Fraction of special characters (!, ?, #, @, etc.) in the text
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">Custom</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value positive">
+                    <span class="correlation-arrow">▲</span> r = 0.0894
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card increase">
+        <div class="feature-direction">Increases Funniness</div>
+        <div class="feature-arrow">▲</div>
+        <div class="feature-name">NEGATIVE_SENTIMENT</div>
+        <div class="feature-meaning">
+            Proportion of negative emotional tone in the text
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">VADER</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value positive">
+                    <span class="correlation-arrow">▲</span> r = 0.0821
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- DECREASES FUNNINESS -->
+    <div class="feature-card decrease">
+        <div class="feature-direction">Decreases Funniness</div>
+        <div class="feature-arrow">▼</div>
+        <div class="feature-name">COMPOUND_SENTIMENT</div>
+        <div class="feature-meaning">
+            Overall sentiment score combining positive, negative, and neutral
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">VADER</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value negative">
+                    <span class="correlation-arrow">▼</span> r = -0.1213
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card decrease">
+        <div class="feature-direction">Decreases Funniness</div>
+        <div class="feature-arrow">▼</div>
+        <div class="feature-name">NUM_UNIQUE_STOPWORDS</div>
+        <div class="feature-meaning">
+            Count of distinct common words (the, is, at, etc.)
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">NLTK</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value negative">
+                    <span class="correlation-arrow">▼</span> r = -0.0979
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card decrease">
+        <div class="feature-direction">Decreases Funniness</div>
+        <div class="feature-arrow">▼</div>
+        <div class="feature-name">FRAC_ALPHABETICAL</div>
+        <div class="feature-meaning">
+            Proportion of standard letters versus numbers and symbols
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">Custom</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value negative">
+                    <span class="correlation-arrow">▼</span> r = -0.0966
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card decrease">
+        <div class="feature-direction">Decreases Funniness</div>
+        <div class="feature-arrow">▼</div>
+        <div class="feature-name">NUM_UNIQUE_WORDS</div>
+        <div class="feature-meaning">
+            Total vocabulary size — number of distinct words used
+        </div>
+        <div class="feature-stats">
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Library</span>
+                <span class="feature-stat-value">NLTK</span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">Correlation</span>
+                <span class="feature-stat-value negative">
+                    <span class="correlation-arrow">▼</span> r = -0.0873
+                </span>
+            </div>
+            <div class="feature-stat-row">
+                <span class="feature-stat-label">p-value</span>
+                <span class="feature-stat-value">p < 0.001</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="analysis-conclusion">
+    <div class="conclusion-label">INTERPRETATION</div>
+    <p>
+        Humor correlates with <b>unconventional formatting</b> (special characters, ellipses)
+        and <b>negative emotional content</b> (disgust, negative sentiment).
+        Conversely, conventional positive language and formal vocabulary patterns
+        are associated with non-humorous posts.
+    </p>
+</div>
+
+<h3 class="analysis-subtitle">03.4 / TF-IDF Analysis</h3>
 
 <div class="analysis-hypothesis">
     <div class="hypothesis-label">HYPOTHESIS</div>
@@ -1634,7 +1958,7 @@ ul { margin-left:20px; }
         whereas non-humorous posts rely more heavily on procedural and problem-solving terms.
     </p>
 </div>
-<h3 class="analysis-subtitle">03.4 / Negative Affect and Dark Humor</h3>
+<h3 class="analysis-subtitle">03.5 / Negative Affect and Dark Humor</h3>
 
 <p class="analysis-lead">
     Lexical similarity alone does not explain humor.
@@ -1696,7 +2020,7 @@ ul { margin-left:20px; }
 
 
 
-<h3 class="analysis-subtitle">03.5 / Key Takeaways</h3>
+<h3 class="analysis-subtitle">03.6 / Key Takeaways</h3>
 
 <div class="takeaway-grid">
 
