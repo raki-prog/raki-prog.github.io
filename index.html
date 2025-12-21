@@ -39,9 +39,28 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 30px;
     animation: fadeOutBoot 3s ease-out 3s forwards;
+}
+.boot-logo {
+    animation: logoGlow 2s ease-in-out infinite, logoFadeIn 1s ease-out;
+}
+.boot-logo img {
+    height: 120px;
+    width: auto;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 20px var(--color-neon-green)) drop-shadow(0 0 40px rgba(57, 255, 20, 0.4));
+}
+@keyframes logoGlow {
+    0%, 100% { filter: drop-shadow(0 0 15px var(--color-neon-green)) drop-shadow(0 0 30px rgba(57, 255, 20, 0.3)); }
+    50% { filter: drop-shadow(0 0 25px var(--color-neon-green)) drop-shadow(0 0 50px rgba(57, 255, 20, 0.5)); }
+}
+@keyframes logoFadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
 }
 .boot-text p { margin: 6px 0; }
 .blink { animation: cursorBlink 1s infinite; }
@@ -467,7 +486,14 @@ header {
     box-shadow:0 0 10px rgba(57,255,20,0.4);
     position:sticky; top:0; z-index:100;
 }
-.logo { font-size:18px; font-weight:700; }
+.logo { font-size:18px; font-weight:700; display: flex; align-items: center; }
+.logo img { 
+    height: 50px; 
+    width: auto; 
+    object-fit: contain; 
+    mix-blend-mode: screen;
+    filter: brightness(1.1);
+}
 nav a {
     position: relative;
     margin-right:10px;
@@ -475,8 +501,9 @@ nav a {
     text-decoration:none;
     padding: 4px 8px;
     border-bottom: 2px solid transparent;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
     transform-origin: center bottom;
+    will-change: color, transform;
 }
 nav a::before {
     content: '';
@@ -487,8 +514,9 @@ nav a::before {
     height: 2px;
     background: var(--color-neon-green);
     box-shadow: 0 0 8px var(--color-neon-green);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: width 0.3s ease, opacity 0.3s ease;
     transform: translateX(-50%);
+    will-change: width, opacity;
 }
 nav a:hover { 
     color:var(--color-neon-green); 
@@ -508,15 +536,11 @@ nav a.active::before {
     height: 2px;
     background: var(--color-neon-green);
     box-shadow: 0 0 15px var(--color-neon-green), 0 0 30px rgba(57, 255, 20, 0.3);
-    animation: glowPulse 2s ease-in-out infinite, slideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: glowPulse 2s ease-in-out infinite;
 }
 @keyframes glowPulse {
-    0%, 100% { opacity: 0.7; box-shadow: 0 0 8px var(--color-neon-green); }
-    50% { opacity: 1; box-shadow: 0 0 20px var(--color-neon-green), 0 0 40px rgba(57, 255, 20, 0.2); }
-}
-@keyframes slideIn {
-    0% { width: 0; opacity: 0; }
-    100% { width: 100%; opacity: 1; }
+    0%, 100% { opacity: 0.85; box-shadow: 0 0 10px var(--color-neon-green); }
+    50% { opacity: 1; box-shadow: 0 0 18px var(--color-neon-green), 0 0 35px rgba(57, 255, 20, 0.2); }
 }
 
 /* -------------------------------------- */
@@ -1127,6 +1151,51 @@ ul { margin-left:20px; }
     opacity: 0.85;
 }
 
+/* Base observation block (if not already defined) */
+.observation-block {
+    background: linear-gradient(180deg, #0f1318 0%, #0b0e11 200%);
+    padding: 1.5rem;
+    margin: 3rem auto;
+    max-width: 900px;
+    position: relative;
+    text-align: center;
+}
+
+/* RED VARIANT */
+.observation-block-red {
+    border: 1px solid rgba(255, 60, 60, 0.35);
+    box-shadow:
+        0 0 22px rgba(255, 60, 60, 0.35),
+        inset 0 0 14px rgba(255, 60, 60, 0.12);
+}
+
+/* Header */
+.observation-header {
+    font-family: monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    opacity: 0.85;
+}
+
+/* Image */
+.observation-image {
+    width: 100%;
+    max-width: 820px;
+    border-radius: 6px;
+    margin: 1rem auto 1.2rem;
+    display: block;
+    filter: contrast(1.05) brightness(0.95);
+}
+
+/* Meta line */
+.observation-meta {
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 150, 150, 0.8);
+}
 
 
 
@@ -1309,6 +1378,9 @@ ul { margin-left:20px; }
 
 <!-- BOOT SCREEN -->
 <div id="boot-screen">
+  <div class="boot-logo">
+    <img src="images/Logo.png" alt="QU-7 Logo">
+  </div>
   <div class="boot-text">
     <p>Initializing QU-7 Neural Cluster...</p>
     <p>Decrypting Humor Archives (2014-2017)...</p>
@@ -1331,7 +1403,7 @@ ul { margin-left:20px; }
 
 <!-- HEADER -->
 <header>
-    <div class="logo">[QU-7: LAUGHTER ARCHIVE]</div>
+    <div class="logo"><img src="images/Logo.png" alt="QU-7 Logo"></div>
     <nav>
         <a href="#intro">Intro</a>
         <a href="#dataset">Dataset</a>
@@ -1339,7 +1411,8 @@ ul { margin-left:20px; }
         <a href="#analysis">General analysis</a>
         <a href="#trends">Temporal analysis</a>
         <a href="#dynamic">Dynamic analysis</a>
-        <a href="#team">Team</a>
+        <a href="#conclusion">Conclusion</a>
+        <a href="#team">The Team</a>
     </nav>
 </header>
 
@@ -2703,11 +2776,9 @@ ul { margin-left:20px; }
 
 </section>
 
-<section id="final-takeaways" class="report-section">
+<section id="conclusion" class="report-section">
 
-    <h2 class="glitch" data-text="FINAL / SYSTEM STATE">
-        FINAL / SYSTEM STATE
-    </h2>
+    <h2 class="glitch" data-text="06 / CONCLUSION">06 / CONCLUSION</h2>
 
     <div class="signal-column signal-column-mixed">
 
@@ -2849,85 +2920,144 @@ ul { margin-left:20px; }
         >> analysis terminated · uncertainty acknowledged
     </p>
 
+
+
+
+    <p class="analysis-lead">
+        In this project, humor was treated not as entertainment,
+        but as a signal.
+    </p>
+
+    <p>
+        Through the analysis of the Reddit Hyperlink dataset,
+        we attempted to reverse-engineer a seemingly trivial artifact:
+        online humor. What emerged was neither randomness nor noise,
+        but a structured, context-sensitive phenomenon shaped by
+        human rhythms, community norms, and collective emotional states.
+    </p>
+
+    <p>
+        Humor follows predictable weekly cycles, varies sharply across
+        thematic communities, and propagates through specific network
+        pathways. It reacts to external shocks, adapts to platform
+        constraints, and shifts form depending on when, where,
+        and by whom it is produced.
+    </p>
+
+    <p>
+        Most importantly, this study shows that humor cannot be reduced
+        to surface-level linguistic features or simple rules.
+        Even with advanced models and large-scale data,
+        humor resists full formalization.
+        It emerges from the interaction between language, timing,
+        shared context, and human experience.
+    </p>
+
+<p class="analysis-transition">
+    In attempting to decode laughter, we did not eliminate its mystery.
+    We only mapped its boundaries………………
+</p>
+
+<p class="system-note">
+    &gt;&gt; The Reddit Ruins have spoken.<br>
+    Humor, it would seem, is irreducibly human.<br>
+    And it exists and thrives in each one of us :)
+    <br>
+    &gt;&gt; humor: partially understood · fully human
+</p>
+
+<div class="observation-block observation-block-red">
+    <div class="observation-header">
+        :) Bye
+    </div>
+
+    <img
+        src="images/end-of-the-road.jpg"
+        alt="end of the road"
+        class="observation-image">
+
+    <div class="observation-meta">
+        Source identified · Integrity compromised
+    </div>
+</div>
+
+
 </section>
-
-
-
-<br> <br>
-
-
-  
-    <!-- ARCHIVE EXAMPLES -->
-    <section id="examples" class="report-section">
-        <h2 class="glitch" data-text="05 / ARCHIVE LOGS">05 / ARCHIVE LOGS</h2>
-
-        <!-- Example Post -->
-        <article class="post">
-            <img src="https://placehold.co/800x300/1e1e24/39ff14?text=H-SCORE+9.4">
-            <div class="post-info">
-                <div class="subreddit">SOURCE: r/Puns • 2017.03.11</div>
-                <div class="post-title">“My fear of speed bumps is growing…”</div>
-                <p>H-Score: 9.4 — Preview of syntactic inversion.</p>
-            </div>
-        </article>
-
-        <!-- add more posts -->
-    </section>
-
-
-    <!-- CONCLUSION -->
-    <section id="conclusion" class="report-section">
-        <h2 class="glitch" data-text="06 / CONCLUSION">06 / CONCLUSION</h2>
-        <p><!-- YOUR SUMMARY HERE --></p>
-    </section>
 
 
     <!-- TEAM -->
     <section id="team" class="report-section">
-        <h2 class="glitch" data-text="TEAM">TEAM</h2>
+        <h2 class="glitch" data-text="THE TEAM">THE TEAM</h2>
         <ul>
-            <li>Your Name — Research Lead</li>
-            <li>Teammates…</li>
+            <li>Dàmaso Dubail</li>
+            <li>Mohamed Mokhtar Sellami</li>
+            <li>Aïda Besri</li>
+            <li>Raki Ben Mustapha</li>
+            <li>Amine Benzarti</li>
         </ul>
-        <p><a style="color:var(--color-neon-green)" href="https://github.com/">GitHub Repository</a></p>
+        <i>Remember us...</i>
     </section>
 
 </main>
 
 <script>
-// Scroll Spy for Navigation
+// Scroll Spy for Navigation with throttling
 document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a');
+    let currentActive = null;
+    let ticking = false;
     
     function updateActiveLink() {
-        const scrollPos = window.scrollY + 150; // Offset for header height
+        const scrollPos = window.scrollY + 150;
+        let newActive = null;
         
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + sectionId) {
-                        link.classList.add('active');
-                    }
-                });
+        // Check if we're at the bottom of the page
+        const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 50);
+        
+        if (isAtBottom) {
+            // If at bottom, activate the last section in the nav
+            const lastNavLink = navLinks[navLinks.length - 1];
+            if (lastNavLink) {
+                newActive = lastNavLink.getAttribute('href').replace('#', '');
             }
-        });
+        } else {
+            // Find the current section
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                if (scrollPos >= section.offsetTop) {
+                    newActive = section.getAttribute('id');
+                    break;
+                }
+            }
+        }
         
-        // Handle case when at the very top of the page
+        // Handle top of page
         if (window.scrollY < 100) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            const introLink = document.querySelector('nav a[href="#intro"]');
-            if (introLink) introLink.classList.add('active');
+            newActive = 'intro';
+        }
+        
+        // Only update DOM if active section changed
+        if (newActive !== currentActive) {
+            currentActive = newActive;
+            navLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === '#' + newActive;
+                link.classList.toggle('active', isActive);
+            });
+        }
+        
+        ticking = false;
+    }
+    
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(updateActiveLink);
+            ticking = true;
         }
     }
     
-    window.addEventListener('scroll', updateActiveLink);
-    updateActiveLink(); // Run on page load
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateActiveLink();
 });
 </script>
 
