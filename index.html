@@ -150,6 +150,44 @@ body::after {
 .glitch-inline {
     position: relative;
 }
+
+.bad-swiw.glitch-inline {
+    color: var(--color-neon-green);
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--color-neon-green), 0 0 15px rgba(56, 255, 136, 0.5);
+    animation: badSwiwGlitch 3s infinite;
+}
+
+.bad-swiw.glitch-inline::before,
+.bad-swiw.glitch-inline::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-neon-green);
+}
+
+.bad-swiw.glitch-inline::before {
+    text-shadow: -2px 0 #ff0000;
+    animation: glitch 1.5s infinite alternate-reverse;
+}
+
+.bad-swiw.glitch-inline::after {
+    text-shadow: 2px 0 #0000ff;
+    animation: glitch2 1.5s infinite alternate-reverse;
+}
+
+@keyframes badSwiwGlitch {
+    0%, 90%, 100% { opacity: 1; }
+    92% { opacity: 0.8; transform: translateX(-2px); }
+    94% { opacity: 1; transform: translateX(2px); }
+    96% { opacity: 0.9; transform: translateX(0); }
+}
+
+.green-letter {
+    color: var(--color-neon-green);
+}
+
 .intro-video video {
     position:absolute; top:50%; left:50%;
     transform:translate(-50%,-50%);
@@ -1726,7 +1764,7 @@ document.getElementById('narrationVideo').addEventListener('click', function() {
         <span class="label"></span>
         <p>
             This classification was later formalized by the government under a regulation internally 
-            renamed <span class="bad-swiw glitch-inline" data-text="BAD_SWIW">BAD_SWIW</span> ( <i> Behavioral Alignment Directive : State-Wide Inhibition of Wit </i> ), which defined 
+            renamed <span class="bad-swiw glitch-inline" data-text="BAD_SWIW">BAD_SWIW</span> ( <i> <span class="green-letter">B</span>ehavioral <span class="green-letter">A</span>lignment <span class="green-letter">D</span>irective : <span class="green-letter">S</span>tate-<span class="green-letter">W</span>ide <span class="green-letter">I</span>nhibition of <span class="green-letter">W</span>it </i> ), which defined 
             humor as a systemic inefficiency. By law, researching deprecated human behaviors is forbidden, 
             as reintroducing them is considered a threat to system optimization.
         </p>
