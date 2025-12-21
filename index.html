@@ -177,6 +177,23 @@ body::after {
   margin-bottom: -2rem;
 }
 
+.dystopia-frame-1 {
+  background: linear-gradient(180deg, #0f1318 0%, #0b0e11 200%);
+  border: 1px solid rgba(56, 255, 136, 0.25);
+  box-shadow: 
+    0 0 20px var(--border-glow),
+    inset 0 0 12px rgba(56, 255, 136, 0.08);
+
+  padding: 1rem;
+  max-width: 2000px;
+  margin: 2rem auto;
+  margin-bottom: 2rem;
+
+  position: relative;
+  overflow: hidden; /* IMPORTANT for scaled iframes */
+}
+
+
 /* Dark dystopia frame - no color inversion needed for dark-themed content */
 .dystopia-frame-dark {
   background: transparent;
@@ -202,6 +219,13 @@ body::after {
   overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
   position: relative;
 }
+.plot-wrapper-1 {
+  width: 100%;
+  height: 750px;    /* This controls how much of the plot you see */
+  overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
+  position: relative;
+}
+
 .plot-wrapper-2 {
   width: 100%;
   height: 350px;    /* This controls how much of the plot you see */
@@ -215,26 +239,87 @@ body::after {
   overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
   position: relative;
 }
+.plot-wrapper-4 {
+  width: 100%;
+  height: 800px;    /* This controls how much of the plot you see */
+  overflow: hidden; /* This acts as the 'mask' to hide scrollbars */
+  position: relative;
+}
+
+.plot-wrapper-5 {
+  width: 200%;
+  height: 450px;          /* slightly smaller, avoids Y scroll */
+  overflow: hidden;       /* hard mask */
+  position: relative;
+}
+.plot-wrapper-6 {
+  width: 200%;
+  height: 700px;          /* slightly smaller, avoids Y scroll */
+  overflow: hidden;       /* hard mask */
+  position: relative;
+}
+.plot-wrapper-7 {
+  width: 200%;
+  height: 400px;          /* slightly smaller, avoids Y scroll */
+  overflow: hidden;       /* hard mask */
+  position: relative;
+}
+
 
 .plot-iframe {
-  /* We make the iframe larger than the container... */
-  width: 140%;      
-  height: 550px;    
+  width: 200%;
+  height: 1000px;              /* ↓ from 520 / 800 */
   border: none;
-  
-  /* ...then we shrink it slightly to fit the data into view */
-  transform: scale(1);
-  transform-origin: top left;
-  
-  /* Shifts the plot to hide the 'white space' usually on the left/top */
-  margin-top: -40px; 
-  margin-left: -30px;
+  display: block;
+  overflow-x: hidden;
 
-  /* Your existing aesthetic filters */
-  filter: invert(1) hue-rotate(180deg) brightness(0.9); 
-  mix-blend-mode: screen; 
-  pointer-events: all; 
+  /* subtle global shrink */
+  transform: scale(0.74);
+  transform-origin: top left;
+
+  filter: invert(1) hue-rotate(180deg) brightness(0.9);
+  mix-blend-mode: screen;
+
+
+  pointer-events: all;
 }
+.plot-iframe-1 {
+  width: 100%;
+  height: 1000px;              /* ↓ from 520 / 800 */
+  border: none;
+  display: block;
+  overflow-x: hidden;
+  margin-bottom: 2rem;
+
+  /* subtle global shrink */
+  transform: scale(0.74);
+  transform-origin: top left;
+
+  filter: invert(1) hue-rotate(180deg) brightness(0.9);
+  mix-blend-mode: screen;
+
+
+  pointer-events: all;
+}
+.plot-iframe-2 {
+  width: 100%;
+  height: 1000px;              /* ↓ from 520 / 800 */
+  border: none;
+  display: block;
+  overflow-x: hidden;
+  margin-bottom: 2rem;
+
+  /* subtle global shrink */
+  transform: scale(0.8);
+  transform-origin: top left;
+
+  filter: invert(1) hue-rotate(180deg) brightness(0.9);
+  mix-blend-mode: screen;
+
+
+  pointer-events: all;
+}
+
 
 /* Dark theme plots - no color inversion needed */
 .plot-iframe-dark {
@@ -409,7 +494,7 @@ ul { margin-left:20px; }
 }
 .plot-image-2 {
     width: 100%;
-    max-width: 500px;      /* ⬅ controls how big it gets */
+    max-width: 550px;      /* ⬅ controls how big it gets */
     max-height: 1000px;     /* ⬅ prevents vertical dominance */
     object-fit: contain;  /* keeps proportions */
     display: block;
@@ -719,6 +804,177 @@ ul { margin-left:20px; }
     color: #e0e0e0;
     line-height: 1.5;
 }
+
+.analysis-subtitle {
+  margin-top: 3rem;
+}
+
+.analysis-transition {
+  margin-top: 3rem;
+}
+
+.system-note {
+  margin-top: 1.5rem;
+}
+
+.analysis-note {
+  font-size: 0.85rem;
+  color: rgba(200, 220, 210, 0.7);
+  margin: 0.75rem 0 2rem 0;
+  font-style: italic;
+}
+
+.analysis-conclusion .conclusion-label {
+  color: #7dd3a8;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.event-card {
+  background: linear-gradient(180deg, #0e1216, #0a0d10);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.2rem;
+  position: relative;
+  box-shadow: inset 0 0 12px rgba(255,255,255,0.03);
+}
+
+.event-card.control {
+  border-color: rgba(120, 255, 200, 0.25);
+}
+
+.event-card.shock {
+  border-color: rgba(255, 90, 90, 0.35);
+}
+
+.event-header {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.event-metric {
+  font-family: monospace;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 0.8rem;
+}
+
+.event-result {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.event-result.neutral {
+  color: #8fdcc0;
+}
+
+.event-result.negative {
+  color: #ff6b6b;
+}
+
+.event-footnote {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.event-card {
+  position: relative;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, #0f1318, #0b0e11);
+  border: 1px solid rgba(56,255,136,0.18);
+  box-shadow: 0 0 18px rgba(56,255,136,0.12);
+  overflow: hidden;
+}
+
+.event-card.shock {
+  border-color: rgba(255,90,90,0.35);
+  box-shadow: 0 0 18px rgba(255,90,90,0.18);
+}
+
+.event-header {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.event-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.event-metric {
+  margin-top: 0.6rem;
+  font-family: monospace;
+  opacity: 0.7;
+}
+
+.event-result {
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+
+.event-result.neutral { color: #7fffd4; }
+.event-result.negative { color: #ff6b6b; }
+
+.event-footnote {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Hover stats overlay */
+.event-stats {
+  position: absolute;
+  inset: 0;
+  padding: 1.4rem;
+  background: rgba(10,14,18,0.95);
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #cfd8dc;
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+}
+
+.event-card:hover .event-stats {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* subtle hint */
+.event-card::after {
+  content: "↳ stats";
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.65rem;
+  opacity: 0.3;
+}
+
+
+
 
 
 
@@ -1177,7 +1433,7 @@ ul { margin-left:20px; }
     in funny posts while remaining uncommon in non-funny content, and vice versa.
 </p>
 
-<div class="plot-wrapper-1">
+<div class="plot-wrapper-4">
     <div class="dystopia-frame">
 
         <div class="plot-label">
@@ -1262,104 +1518,269 @@ ul { margin-left:20px; }
 
     <p class="analysis-lead">
         Up to this point, humor appeared structurally stable at the lexical level.
-        However, repeated anomalies suggested that time itself might play a role.
+        Temporal effects had not yet been examined.
     </p>
 
     <p>
-        To test this, the lab examined humor across successive years.
-        What appeared consistent in language began to shift when placed in temporal context.
+        To assess whether humor follows long-term calendar patterns,
+        the lab aggregated humor signals across multiple years and aligned them
+        by day of the year.
     </p>
 
-    <div class="plot-wrapper-3">
+    <!-- Soft narrative transition -->
+    <div class="plot-wrapper-1">
         <div class="dystopia-frame">
-
             <div class="plot-label">
-                >> A M.E.M.E ???
+                >> temporal alignment in progress
             </div>
 
             <img
                 src="images/meme.png"
-                alt="Researcher exposed to jokes from 2014, 2015, and 2016 showing increasing confusion"
+                alt="Researcher exposed to jokes from 2014, 2015, and 2016"
                 class="plot-image-2">
         </div>
     </div>
 
-    <h2 class="glitch" data-text=">> TEMPORAL PLOTS">>> TEMPORAL PLOTS</h2>
-    <br> <br>
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-    
-    <div class="plot-wrapper">
+<h3 class="analysis-subtitle">04.1 / Yearly Calendar Structure</h3>
+
+<div class="analysis-hypothesis">
+    <div class="hypothesis-label">HYPOTHESIS</div>
+    <p>
+        If humor is influenced by long-term calendar structure
+        (seasons, holidays, recurring annual events),
+        then both average humor levels and extreme deviations
+        should recur at consistent points in the year.
+    </p>
+</div>
+
+<p>
+    Two complementary analyses were performed to test this assumption.
+    First, average humor levels were aligned by calendar date.
+    Second, extreme humor deviations were examined for cross-year recurrence.
+</p>
+
+<!-- ===================== -->
+<!-- PLOT 1: DOY ALIGNMENT -->
+<!-- ===================== -->
+<div class="dystopia-frame-1">
+    <div class="plot-label">
+        [ LIVE SIGNAL — HUMOR PROPORTION BY DAY OF YEAR ]
+    </div>
+
+    <div class="plot-wrapper-5">
         <iframe
-        src="plots/daily_sentiment.html"
-        class="plot-iframe">
+            src="plots/doy_profiles.html"
+            class="plot-iframe"
+            title="Humor proportion aligned by day of year">
         </iframe>
     </div>
+</div>
+
+<p class="analysis-note">
+    This view tests whether humor consistently increases or decreases
+    at fixed calendar dates across years.
+</p>
+
+<!-- ===================== -->
+<!-- PLOT 2: SPIKE ALIGNMENT -->
+<!-- ===================== -->
+<div class="dystopia-frame-1">
+    <div class="plot-label">
+        [ LIVE SIGNAL — EXTREME HUMOR EVENTS ACROSS YEARS ]
     </div>
 
-    <br> <br>   
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-    
-    <div class="plot-wrapper">
+    <div class="plot-wrapper-7">
         <iframe
-        src="plots/doy_profiles.html"
-        class="plot-iframe">
+            src="plots/spike_alignment_title_body.html"
+            class="plot-iframe-2"
+            title="Humor spike alignment across years">
         </iframe>
     </div>
+</div>
+
+<p class="analysis-note">
+    This view tests whether extreme humor events
+    recur at the same calendar positions across years.
+</p>
+
+<!-- ===================== -->
+<!-- CONCLUSION -->
+<!-- ===================== -->
+<div class="analysis-conclusion">
+    <div class="conclusion-label">RESULT</div>
+
+    <p>
+        Average humor levels remain broadly flat across the calendar.
+        While fluctuations exist, they do not recur at consistent dates,
+        and no stable holiday or seasonal peaks are observed.
+    </p>
+
+    <p>
+        Extreme humor events also fail to align across years.
+        Spike days show minimal overlap, indicating that
+        high-intensity humor events are not tied to fixed calendar positions.
+    </p>
+</div>
+
+<p class="system-note">
+    >> yearly calendar structure: not detected
+</p>
+
+<p class="analysis-transition">
+    With yearly structure ruled out at both baseline and extreme levels,
+    temporal organization—if present—must occur at shorter time scales.
+</p>
+
+
+<h3 class="analysis-subtitle">04.2 /Short-Term Temporal Patterns</h3>
+
+<p>
+    To separate long-term behavior from short-term regularity,
+    the humor signal was decomposed into trend, seasonal, and residual components.
+    This allows recurring patterns to be isolated from noise and event-driven effects.
+</p>
+
+<!-- Decomposition signal -->
+<div class="dystopia-frame-1">
+    <div class="plot-label">
+        [ LIVE SIGNAL — HUMOR TEMPORAL DECOMPOSITION ]
     </div>
 
-    <br> <br>    
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-    
-    <div class="plot-wrapper">
+    <div class="plot-wrapper-6">
         <iframe
-        src="plots/humor_proportion_all_years.html"
-        class="plot-iframe">
+            src="plots/humor_decomposition.html"
+            class="plot-iframe-1"
+            title="Humor time-series decomposition">
         </iframe>
     </div>
+</div>
+
+<!-- Analysis -->
+<div class="analysis-conclusion">
+<p>
+    The trend component shows moderate fluctuations but no sustained increase
+    or decrease over time, confirming the absence of long-term humor drift.
+</p>
+
+<p>
+    In contrast, the seasonal component reveals a strong and highly regular
+    <b>weekly cycle</b>. Humor proportions rise and fall every seven days,
+    with consistent amplitude and spacing across the year.
+</p>
+
+<p>
+    This weekly rhythm appears in both titles and bodies, although it is more
+    stable in titles and more variable in bodies. A two-sample proportion z-test
+    confirms that humor rates differ significantly between titles and bodies.
+</p>
+</div>
+
+<p class="analysis-transition">
+    While baseline humor follows a predictable weekly rhythm,
+    the signal also contains sharp deviations that cannot be explained
+    by regular temporal structure alone.
+    These event-driven anomalies are examined next.
+</p>
+<h3 class="analysis-subtitle">04.3 / Event-Driven Deviations</h3>
+
+<p class="analysis-lead">
+    Calendar time failed to explain humor fluctuations.
+    The remaining question is whether <b>external real-world events</b>
+    temporarily disrupt humor expression.
+</p>
+
+<div class="event-grid">
+
+    <!-- CONTROL -->
+    <div class="event-card control">
+        <div class="event-header">CONTROL CONDITION</div>
+        <div class="event-title">Fixed Calendar Holidays</div>
+
+        <div class="event-metric">Christmas (all years)</div>
+
+        <div class="event-result neutral">No significant effect</div>
+
+        <div class="event-footnote">
+            Humor proportions do not differ from baseline.
+        </div>
+
+        <div class="event-stats">
+            Titles: p = 0.43<br>
+            Bodies: p = 0.56<br>
+            Effect size: n.s.
+        </div>
     </div>
 
-    <br> <br>   
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
+    <!-- PARIS -->
+    <div class="event-card shock">
+        <div class="event-header">EXTERNAL SHOCK</div>
+        <div class="event-title">Paris Attacks</div>
+
+        <div class="event-metric">2015-11-13</div>
+
+        <div class="event-result negative">Sharp humor drop</div>
+
+        <div class="event-footnote">
+            Strong decrease in titles and bodies.
+        </div>
+
+        <div class="event-stats">
+            Titles: p = 0.019 · d = −0.99<br>
+            Bodies: p = 0.023 · d = −0.88
+        </div>
+    </div>
+
+    <!-- ELECTION -->
+    <div class="event-card shock">
+        <div class="event-header">EXTERNAL SHOCK</div>
+        <div class="event-title">US Election</div>
+
+        <div class="event-metric">2016-11-08</div>
+
+        <div class="event-result negative">Title-specific drop</div>
+
+        <div class="event-footnote">
+            Effect concentrated in titles.
+        </div>
+
+        <div class="event-stats">
+            Titles: p = 0.012 · d = −1.12<br>
+            Bodies: p = 0.58 · n.s.
+        </div>
+    </div>
+
+</div>
+
+<div class="analysis-conclusion">
+    <div class="conclusion-label">INTERPRETATION</div>
+
+    <p>
+        Humor does not respond to fixed calendar markers,
+        but reacts sharply to collective emotional shocks.
+    </p>
+
+    <p>
+        These effects are large, statistically robust,
+        and temporally localized: humor rapidly returns
+        to baseline once the event context fades.
+    </p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
     
-    <div class="plot-wrapper">
-        <iframe
-        src="plots/liwc_compare.html"
-        class="plot-iframe">
-        </iframe>
-    </div>
-    </div>
 
-    <br> <br>   
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-    
-    <div class="plot-wrapper">
-        <iframe
-        src="plots/liwc_heatmap.html"
-        class="plot-iframe">
-        </iframe>
-    </div>
-    </div>
+   
 
-    <br> <br>
-    <div class="dystopia-frame">
-    <div class="plot-label">[ LIVE SIGNAL — DAILY SENTIMENT TRACE ]</div>
-    
-    <div class="plot-wrapper">
-        <iframe
-        src="plots/month_year_heatmap.html"
-        class="plot-iframe">
-        </iframe>
-    </div>
-    </div>
-
-    <br> <br>
-
-</section>
 
 <!-- DYNAMIC ANALYSIS -->
 <section id="dynamic" class="report-section">
