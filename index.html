@@ -374,6 +374,85 @@ body::after {
     letter-spacing: 0.08em;
 }
 
+.signal-column {
+    position: relative;
+    margin: 3rem auto;
+    max-width: 700px;
+    padding-left: 40px;
+}
+
+/* Vertical wire */
+.signal-column::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        rgba(56,255,136,0.1),
+        rgba(56,255,136,0.6),
+        rgba(56,255,136,0.1)
+    );
+}
+
+/* Each node */
+.signal-node {
+    position: relative;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: revealNode 0.8s ease forwards;
+    animation-timeline: view();
+    animation-range: entry 20% cover 40%;
+}
+
+/* Glow dot */
+.signal-dot {
+    position: absolute;
+    left: -32px;
+    top: 0.6rem;
+    width: 14px;
+    height: 14px;
+    background: #38ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(56,255,136,0.8);
+}
+
+/* Card */
+.signal-card {
+    background: rgba(15,19,24,0.95);
+    border: 1px solid rgba(56,255,136,0.25);
+    padding: 1.2rem;
+    box-shadow: inset 0 0 10px rgba(56,255,136,0.08);
+}
+
+.signal-card h4 {
+    color: #38ff88;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.signal-card p {
+    font-size: 0.95rem;
+    color: #d0d0d0;
+}
+
+/* Scroll reveal animation */
+@keyframes revealNode {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 
 @keyframes pulse {0%,100%{opacity:0.4;}50%{opacity:1;}}
 
@@ -995,6 +1074,57 @@ ul { margin-left:20px; }
   right: 10px;
   font-size: 0.65rem;
   opacity: 0.3;
+}
+.analysis-video {
+  width: 100%;
+  max-width: 520px;     /* ⬅ controls size */
+  max-height: 300px;    /* keeps it compact */
+  display: block;
+  margin: 0 auto 1rem auto;
+  border: 1px solid rgba(56, 255, 136, 0.25);
+  box-shadow: 0 0 12px rgba(56, 255, 136, 0.15);
+}
+/* Red glitch title */
+.glitch-red {
+    color: #ff4d4d;
+}
+.glitch-red::before {
+    text-shadow: -2px 0 #ff0000;
+}
+.glitch-red::after {
+    text-shadow: 2px 0 #ff8080;
+}
+
+/* Red column wire */
+.signal-column-red::before {
+    background: linear-gradient(
+        to bottom,
+        rgba(255,77,77,0.1),
+        rgba(255,77,77,0.6),
+        rgba(255,77,77,0.1)
+    );
+}
+
+/* Red dots */
+.signal-dot-red {
+    background: #ff4d4d;
+    box-shadow: 0 0 12px rgba(255,77,77,0.8);
+}
+
+/* Red cards */
+.signal-card-red {
+    border: 1px solid rgba(255,77,77,0.35);
+    box-shadow: inset 0 0 10px rgba(255,77,77,0.08);
+}
+
+.signal-card-red h4 {
+    color: #ff6a6a;
+}
+
+/* Red system note */
+.system-note-red {
+    color: #ff6a6a;
+    opacity: 0.85;
 }
 
 
@@ -2033,6 +2163,42 @@ ul { margin-left:20px; }
 <!-- DYNAMIC ANALYSIS -->
 <section id="dynamic" class="report-section">
     <h2 class="glitch" data-text="05 / DYNAMIC ANALYSIS">05 / DYNAMIC ANALYSIS</h2>
+        <!-- Conceptual video introduction -->
+    <div class="dystopia-frame-1">
+        <div class="plot-label">
+            [ LOG 5403-B ]
+        </div>
+
+        <video
+            src="video vlog.mp4"
+            controls
+            muted
+            preload="metadata"
+            class="analysis-video">
+        </video>
+
+        <p class="analysis-note">
+            Community clustering reveals coherent groups
+            The connections are real.
+            The potential to influence the narrative is huge, but we are running out of time.
+        </p>
+    </div>
+
+    <h3 class="analysis-subtitle">05.1 / Structural Organization of Humor</h3>
+
+<p class="analysis-lead">
+    The clustering analysis reveals that humor is not randomly distributed,
+    but organized into a finite set of coherent community structures.
+</p>
+
+<p>
+    Using HDBSCAN clustering on semantic embeddings of subreddits,
+    the platform decomposes into <b>23 distinct thematic communities</b>.
+    These clusters span a wide range of domains,
+    from entertainment-oriented spaces (Gaming, Anime, Memes)
+    to institutional and informational domains
+    (Politics, Cryptocurrency, Support communities).
+</p>
     <div class="dystopia-frame">
         <div class="plot-label">[ CLUSTERS ] <i> Drag to move - scroll to zoom - hover for more info</i></div>
         <br> <br>
@@ -2044,7 +2210,59 @@ ul { margin-left:20px; }
         </div>
     </div>
 
-    <br> <br>
+
+<div class="analysis-conclusion">
+    <div class="conclusion-label">OBSERVATION</div>
+
+    <p>
+       * Humor intensity varies strongly across clusters.
+        Entertainment-focused communities consistently exhibit
+        the highest humor proportions.
+        In particular, clusters centered on gaming, memes,
+        and informal content (“shitposts”) dominate the humor landscape.
+    </p>
+
+    <p>
+        * In contrast, politically oriented and support-driven communities
+        show markedly lower humor levels,
+        accompanied by higher concentrations of negative sentiment.
+        In these clusters, communication prioritizes argumentation,
+        emotional expression, or assistance over playfulness.
+    </p>
+
+    <p>
+        * Despite the presence of dark and ironic humor,
+        sentiment analysis reveals a surprising global pattern:
+        <b>positive sentiment interactions dominate overall</b>.
+        Humor is more often directed toward shared enjoyment
+        than toward sustained hostility,
+        even within clusters that tolerate transgressive content.
+    </p>
+</div>
+
+<p class="analysis-transition">
+    These results suggest that humor functions as a localized,
+    community-regulated practice.
+    The next step is to examine how these communities interact,
+    and whether certain clusters act as conduits
+    for humor propagation across the network.
+</p>
+
+<h3 class="analysis-subtitle">05.2 / Network Bridges & Humor Flow</h3>
+
+<p class="analysis-lead">
+    Community structure alone does not explain how humor spreads.
+    The network analysis reveals how interactions between communities
+    shape the circulation of humorous content.
+</p>
+
+<p>
+    Subreddit clusters were connected based on cross-linking activity,
+    producing a network in which nodes represent thematic communities
+    and edges capture the intensity and sentiment of their interactions.
+    This representation allows the identification of central hubs,
+    peripheral clusters, and directional flows of humor.
+</p>
 
     <div class="dystopia-frame">
         <div class="plot-label">[ NETWORK DYNAMICS ]   <i> Drag to move - scroll to zoom - hover for more info</i></div>
@@ -2057,7 +2275,259 @@ ul { margin-left:20px; }
         </div>
     </div>
 
+<div class="analysis-conclusion">
+    <div class="conclusion-label">OBSERVATION</div>
+
+    <p>
+        A small number of clusters occupy structurally central positions
+        in the network. Entertainment-oriented communities
+        (notably Gaming and broader Pop Culture clusters)
+        function as <b>network hubs</b>,
+        maintaining dense connections with many other communities.
+    </p>
+
+    <p>
+        These hub clusters act as <b>bridges for humor propagation</b>.
+        Humor originating within them is more likely to appear
+        across multiple thematic regions of the platform,
+        facilitating cross-community diffusion.
+    </p>
+
+    <p>
+        In contrast, several clusters remain relatively isolated.
+        Highly specialized communities (e.g. Cryptocurrency or
+        game-specific clusters such as Dota 2)
+        exhibit dense internal interaction but weak external connectivity.
+        Humor in these spaces tends to remain <b>insular</b>,
+        evolving according to local norms rather than platform-wide dynamics.
+    </p>
+</div>
+
+
+
+    <br> <br>
+
+<h3 class="analysis-subtitle">05.3 / Dynamic Takeaways</h3>
+
+<div class="takeaway-grid">
+
+    <!-- TAKEAWAY 1 -->
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Community-Bound Humor
+            </div>
+            <div class="card-back">
+                Humor is not platform-wide.<br>
+                It is structured by thematic communities,
+                each with its own norms and tolerance.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAKEAWAY 2 -->
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Entertainment Dominance
+            </div>
+            <div class="card-back">
+                Gaming, memes, and informal communities
+                concentrate the highest humor levels
+                and act as primary humor producers.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAKEAWAY 3 -->
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Network Hubs
+            </div>
+            <div class="card-back">
+                A small number of central clusters
+                function as bridges,
+                enabling humor to propagate
+                across community boundaries.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAKEAWAY 4 -->
+    <div class="takeaway-card">
+        <div class="card-inner">
+            <div class="card-front">
+                Insular Subcultures
+            </div>
+            <div class="card-back">
+                Specialized communities remain isolated.
+                Humor evolves locally
+                and rarely spreads beyond them.
+            </div>
+        </div>
+    </div>
+   
+
+</div>
+ <p>
+    The clustering and network analysis revealed that humor is not randomly distributed but structurally organized across Reddit's ecosystem:
+       some communities generate it, hub communities spread it,
+        and isolated ones keep it local.
+    </p>
+
+
 </section>
+
+<section id="final-takeaways" class="report-section">
+
+    <h2 class="glitch" data-text="FINAL / SYSTEM STATE">
+        FINAL / SYSTEM STATE
+    </h2>
+
+    <div class="signal-column signal-column-mixed">
+
+        <!-- ===================== -->
+        <!-- VERIFIED TAKEAWAYS -->
+        <!-- ===================== -->
+
+        <div class="signal-node">
+            <div class="signal-dot"></div>
+            <div class="signal-card">
+                <h4>Humor is Multi-Dimensional</h4>
+                <p>
+                    Understanding humor requires analyzing temporal patterns, 
+                    linguistic features, AND community structure simultaneously.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot"></div>
+            <div class="signal-card">
+                <h4>Context trumps content</h4>
+                <p>
+                    Humor is conveyed through how words are used,
+                    not which words are used, especially in constrained formats.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot"></div>
+            <div class="signal-card">
+                <h4>External events matter</h4>
+                <p>
+                    Major world events suppress humor temporarily
+                    without structurally altering it.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot"></div>
+            <div class="signal-card">
+                <h4>Platform constraints shape expression</h4>
+                <p>
+                    Titles and bodies obey fundamentally different
+                    humor dynamics.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot"></div>
+            <div class="signal-card">
+                <h4>Network structure enables propagation</h4>
+                <p>
+                    Humor spreads through entertainment hubs,
+                    making connectivity critical for virality.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===================== -->
+        <!-- TRANSITION NODE -->
+        <!-- ===================== -->
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ System Boundary Reached</h4>
+                <p>
+                    Model confidence degrades beyond this point.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===================== -->
+        <!-- LIMITATIONS -->
+        <!-- ===================== -->
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ Modal Blindness</h4>
+                <p>
+                    Image memes are excluded, limiting humor detection
+                    in visual communities.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ Classification Noise</h4>
+                <p>
+                    False positives persist in niche or
+                    context-heavy communities.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ Causality Gap</h4>
+                <p>
+                    Event effects remain correlational,
+                    not causal.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ Temporal Scope</h4>
+                <p>
+                    Dataset limited to 2014–2017;
+                    humor norms may have shifted.
+                </p>
+            </div>
+        </div>
+
+        <div class="signal-node">
+            <div class="signal-dot signal-dot-red"></div>
+            <div class="signal-card signal-card-red">
+                <h4>⚠ Future Extensions</h4>
+                <p>
+                    Image analysis, comment-level humor,
+                    and real-time signals remain open.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="system-note">
+        >> analysis terminated · uncertainty acknowledged
+    </p>
+
+</section>
+
+
 
 <br> <br>
 
