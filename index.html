@@ -905,7 +905,7 @@ ul { margin-left:20px; }
         </tr>
         <tr>
             <td>Nodes</td>
-            <td>55,863 subreddits (online communities)</td>
+            <td>~850K posts from ~56K subreddits (online communities)</td>
         </tr>
         <tr>
             <td>Edge Attributes</td>
@@ -925,7 +925,27 @@ ul { margin-left:20px; }
     <h3 class="dataset-subtitle">01.2 / EXTENDED DATASET (CONTENT RECOVERY)</h3>
 
     <p class="dataset-note">
-        To move forward, the lab used the available post identifiers to recover what is missing. Through web scraping of archived Reddit pages, titles, post bodies, and related comments are retrieved and reattached to the original records. This step allows the analysis to shift from abstract links to the language that produced them.
+        The lab members felt that the dataset found was a very good start.
+        However, the dataset contains only a limited information about every posts but not the post content itself. 
+        To address this, the lab used the available post identifiers to recover what is missing. 
+        By creating scraping bots having access to a web of archived Reddit pages, titles, post bodies and 
+        more relevant information about the authors, their success (upvotes) relevant to understanding the dynamics
+        are retrieved and reattached to the original records.
+        This step allows the analysis to shift from abstract links to the language that produced them.
+
+    </p>
+
+        <!-- FURTHER DATASET -->
+    <h3 class="dataset-subtitle">01.2 / FURTHER DATASET (CONTENT RECOVERY)</h3>
+
+    <p class="dataset-note">
+        After days of recovering the content, one member noticed that they all share a coomon trait: they all 
+        mention another reddit post via a hyperlink. On the moment, they realized that the initial dataset 
+        was not about all posts on reddit, but rather source posts that mention others. This discovery pushed them 
+        to further recover the target posts that were mentioned in the source posts to have a more general idea about humor.
+        They guessed that these hyperlinks might have an effect on the discussion in the target posts, 
+        so they decided to collect all the comments and replies relative of these posts which might explain some humor dynamics.
+        
     </p>
 
 </section>
