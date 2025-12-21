@@ -1263,7 +1263,7 @@ ul { margin-left:20px; }
         <a href="#trends">Temporal analysis</a>
         <a href="#dynamic">Dynamic analysis</a>
         <a href="#conclusion">Conclusion</a>
-        <a href="#team">Team</a>
+        <a href="#team">The Team</a>
     </nav>
 </header>
 
@@ -2663,7 +2663,7 @@ ul { margin-left:20px; }
 
     <!-- TEAM -->
     <section id="team" class="report-section">
-        <h2 class="glitch" data-text="TEAM">TEAM</h2>
+        <h2 class="glitch" data-text="THE TEAM">THE TEAM</h2>
         <ul>
             <li>Dàmaso Dubail</li>
             <li>Mohamed Mokhtar Sellami</li>
@@ -2688,12 +2688,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollPos = window.scrollY + 150;
         let newActive = null;
         
-        // Find the current section
-        for (let i = sections.length - 1; i >= 0; i--) {
-            const section = sections[i];
-            if (scrollPos >= section.offsetTop) {
-                newActive = section.getAttribute('id');
-                break;
+        // Check if we're at the bottom of the page
+        const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 50);
+        
+        if (isAtBottom) {
+            // If at bottom, activate the last section in the nav
+            const lastNavLink = navLinks[navLinks.length - 1];
+            if (lastNavLink) {
+                newActive = lastNavLink.getAttribute('href').replace('#', '');
+            }
+        } else {
+            // Find the current section
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                if (scrollPos >= section.offsetTop) {
+                    newActive = section.getAttribute('id');
+                    break;
+                }
             }
         }
         
